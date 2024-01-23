@@ -10,10 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('attack_types', function (Blueprint $table) {
+        Schema::create('incident_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->string('description', 255);
+            $table->string("name", 255);
         });
     }
 
@@ -22,6 +21,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('attack_types');
+        Schema::dropIfExists('incident_statuses');
     }
 };

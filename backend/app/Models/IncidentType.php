@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class AttackType extends Model
+class IncidentType extends Model
 {
     use HasFactory;
 
-    public function attack(): HasMany
+    public function incident(): HasMany
     {
-        return $this->hasMany(Attack::class, "attack_type_id");
+        return $this->hasMany(Incident::class, "type_id");
     }
 }

@@ -10,8 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('attack_list_statuses', function (Blueprint $table) {
+        Schema::create('infrastructures', function (Blueprint $table) {
             $table->id();
+            $table->ipAddress("ipv4");
             $table->string("name", 255);
         });
     }
@@ -21,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('attack_list_statuses');
+        Schema::dropIfExists('infrastructures');
     }
 };

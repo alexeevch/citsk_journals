@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Attack extends Model
+class Incident extends Model
 {
     use HasFactory;
 
@@ -16,13 +16,18 @@ class Attack extends Model
         return $this->hasOne(Attacker::class, "attacker_id");
     }
 
-    public function attacked(): HasOne
+    public function infrastructure(): HasOne
     {
-        return $this->hasOne(Attacked::class, "attacked_id");
+        return $this->hasOne(Infrastructure::class, "infrastructure_id");
     }
 
-    public function attackType(): HasOne
+    public function incidentType(): BelongsTo
     {
-        return $this->hasOne(AttackType::class, "attack_type_id");
+        return $this->belongsTo(IncidentType::class, "type_id");
+    }
+
+    public function incidentStatus(): BelongsTo
+    {
+        return $this->belongsTo(IncidentStatus::class, "status_id");
     }
 }

@@ -10,12 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('attacker', function (Blueprint $table) {
+        Schema::create('incident_types', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string("ipv4", 255);
-            $table->string("description", 255);
-            $table->string("country", 255);
+            $table->string('name', 255);
+            $table->string('description', 255)->nullable();
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('attacker');
+        Schema::dropIfExists('incident_types');
     }
 };

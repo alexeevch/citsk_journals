@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AttackListStatus>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\IncidentStatus>
  */
 class AttackListStatusFactory extends Factory
 {

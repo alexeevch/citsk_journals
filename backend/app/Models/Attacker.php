@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Attacker extends Model
 {
     use HasFactory;
 
-    public function attacks(): HasMany
+    public function incident(): HasOne
     {
-        return $this->hasMany(Attack::class, "attacker_id");
+        return $this->hasOne(Incident::class, "attacker_id");
     }
 }
