@@ -10,6 +10,12 @@ class IncidentStatus extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        "name",
+    ];
+
     public function incident(): HasMany
     {
         return $this->hasMany(Incident::class, "status_id");

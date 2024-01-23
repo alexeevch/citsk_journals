@@ -10,6 +10,12 @@ class Attacker extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "ipv4",
+        "description",
+        "country",
+    ];
+
     public function incident(): HasOne
     {
         return $this->hasOne(Incident::class, "attacker_id");

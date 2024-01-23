@@ -11,6 +11,17 @@ class Incident extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "attacker_id",
+        "infrastructure_id",
+        "type_id",
+        "status_id",
+        "description",
+        "detection_time",
+        "group_alert_time",
+        "supervisor_alert_time",
+    ];
+
     public function attacker(): HasOne
     {
         return $this->hasOne(Attacker::class, "attacker_id");

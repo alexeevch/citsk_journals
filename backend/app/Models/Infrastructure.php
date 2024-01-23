@@ -10,6 +10,11 @@ class Infrastructure extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "ipv4",
+        "name"
+    ];
+
     public function incident(): HasOne
     {
         return $this->hasOne(Incident::class, "attacked_id");

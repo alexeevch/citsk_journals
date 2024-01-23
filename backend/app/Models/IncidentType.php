@@ -10,6 +10,13 @@ class IncidentType extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        "name",
+        "description",
+    ];
+
     public function incident(): HasMany
     {
         return $this->hasMany(Incident::class, "type_id");
