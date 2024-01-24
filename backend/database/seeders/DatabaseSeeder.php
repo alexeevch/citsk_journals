@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\IncidentType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $incidentType = $this->call(IncidentTypeSeeder::class);
         $incidentStatus = $this->call(IncidentStatusSeeder::class);
+        $incident = $this->call(IncidentSeeder::class);
     }
 }
