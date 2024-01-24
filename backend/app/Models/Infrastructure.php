@@ -10,6 +10,8 @@ class Infrastructure extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         "ipv4",
         "name"
