@@ -9,7 +9,6 @@ class IncidentStatusCreateDTO extends ValidatedDTO
     protected function rules(): array
     {
         return [
-            'id'   => ['required', 'integer'],
             'name' => ['required', 'string'],
         ];
     }
