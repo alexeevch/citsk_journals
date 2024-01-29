@@ -2,18 +2,22 @@
 
 namespace App\Http\Resources\Infrastructure;
 
+use App\Models\Infrastructure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Infrastructure
+ */
 class InfrastructureResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id'    => $this->id,
+            'ipv4'  => $this->ipv4,
+            'name'  => $this->name,
+            'owner' => $this->owner,
+        ];
     }
 }
