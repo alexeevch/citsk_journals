@@ -22,6 +22,10 @@ class Incident extends Model
         "supervisor_alert_time",
     ];
 
+    protected $attributes = [
+        'status_id' => 1, //TODO: Вынести магическое значение
+    ];
+
     public function attacker(): HasOne
     {
         return $this->hasOne(Attacker::class, "attacker_id");
