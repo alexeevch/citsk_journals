@@ -17,10 +17,10 @@ class AttackerFactory extends Factory
     public function definition(): array
     {
         return [
-            "ipv4" => $this->faker->ipv4(),
+            "ipv4"        => $this->faker->ipv4(),
             "description" => $this->faker->text(),
-            "country" => $this->faker->country(),
-            "created_at" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s')
+            "country"     => $this->faker->country(),
+            "created_at"  => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s')
         ];
     }
 }

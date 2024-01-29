@@ -13,7 +13,7 @@ class IncidentTypeSeeder extends Seeder
     public function run(): void
     {
         IncidentType::factory()->create([
-            'name' => 'DDOS',
+            'name'        => 'DDOS',
             'description' => 'DDoS-атака (или Denial of Service, или «отказ в обслуживании») — это попытка злоумышленников так загрузить сервер, чтобы он просто перестал работать.'
         ]);
     }

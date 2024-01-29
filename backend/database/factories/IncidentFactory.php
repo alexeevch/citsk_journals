@@ -22,17 +22,17 @@ class IncidentFactory extends Factory
     public function definition(): array
     {
         return [
-            'attacker_id' => function () {
+            'attacker_id'           => function () {
                 return Attacker::factory()->create()->id;
             },
-            'infrastructure_id' => function () {
+            'infrastructure_id'     => function () {
                 return Infrastructure::factory()->create()->id;
             },
-            'type_id' => 1,
-            'status_id' => 1,
-            'description' => $this->faker->text(255),
-            "detection_time" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
-            "group_alert_time" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            'type_id'               => 1,
+            'status_id'             => 1,
+            'description'           => $this->faker->text(255),
+            "detection_time"        => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            "group_alert_time"      => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
             "supervisor_alert_time" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
         ];
     }

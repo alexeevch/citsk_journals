@@ -19,8 +19,8 @@ class IncidentStatusSeeder extends Seeder
         ];
 
         IncidentStatus::factory()
-            ->count(count($statuses))
-            ->sequence(fn(Sequence $sequence) => ['name' => $statuses[$sequence->index]])
-            ->create();
+                      ->count(count($statuses))
+                      ->sequence(fn(Sequence $sequence) => ['name' => $statuses[$sequence->index]])
+                      ->create();
     }
 }
