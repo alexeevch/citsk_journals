@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $ipv4
  * @property string $name
  * @property string $owner
+ * @mixin Eloquent
  */
 class Infrastructure extends Model
 {

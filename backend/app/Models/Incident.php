@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DateTime;
+use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property DateTime       $detection_time
  * @property DateTime       $group_alert_time
  * @property DateTime       $supervisor_alert_time
+ * @mixin Eloquent
  */
 class Incident extends Model
 {
