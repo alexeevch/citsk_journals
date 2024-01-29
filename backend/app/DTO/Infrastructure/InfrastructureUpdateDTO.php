@@ -7,9 +7,9 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class InfrastructureUpdateDTO extends ValidatedDTO
 {
     public int $id;
-    public ?string $ipv4;
-    public ?string $name;
-    public ?string $owner;
+    public ?string $ipv4 = null;
+    public ?string $name = null;
+    public ?string $owner = null;
 
     protected function rules(): array
     {
