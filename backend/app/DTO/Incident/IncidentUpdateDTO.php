@@ -13,10 +13,10 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class IncidentUpdateDTO extends ValidatedDTO
 {
     public int $id;
-    public ?int $attacker = null;
-    public ?int $infrastructure = null;
-    public ?int $type = null;
-    public ?int $status = null;
+    public ?array $attacker = null;
+    public ?array $infrastructure = null;
+    public ?array $type = null;
+    public ?array $status = null;
     public ?string $description = null;
     public ?DateTime $detection_time = null;
     public ?DateTime $group_alert_time = null;
