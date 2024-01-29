@@ -12,8 +12,9 @@ return new class extends Migration {
     {
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->id();
-            $table->ipAddress("ipv4");
-            $table->string("name", 255);
+            $table->ipAddress('ipv4');
+            $table->string('name', 255);
+            $table->string('owner', 255);
         });
     }
 

@@ -17,8 +17,9 @@ class InfrastructureFactory extends Factory
     public function definition(): array
     {
         return [
-            "ipv4" => $this->faker->ipv4(),
-            "name" => $this->faker->name(),
+            "ipv4"  => $this->faker->ipv4(),
+            "name"  => $this->faker->company(),
+            "owner" => $this->faker->name()
         ];
     }
 }

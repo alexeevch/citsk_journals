@@ -14,7 +14,8 @@ class Infrastructure extends Model
 
     protected $fillable = [
         "ipv4",
-        "name"
+        "name",
+        "owner",
     ];
 
     public function incident(): HasOne
