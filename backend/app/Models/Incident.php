@@ -2,20 +2,32 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @property int            $id
+ * @property Attacker       $attacker
+ * @property Infrastructure $infrastructure
+ * @property IncidentType   $type
+ * @property IncidentStatus $status
+ * @property string         $description
+ * @property DateTime       $detection_time
+ * @property DateTime       $group_alert_time
+ * @property DateTime       $supervisor_alert_time
+ */
 class Incident extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "attacker_id",
-        "infrastructure_id",
-        "type_id",
-        "status_id",
+        "attacker",
+        "infrastructure",
+        "type",
+        "status",
         "description",
         "detection_time",
         "group_alert_time",

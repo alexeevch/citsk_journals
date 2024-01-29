@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @property int    $id
+ * @property string $ipv4
+ * @property string $name
+ * @property string $owner
+ */
 class Infrastructure extends Model
 {
     use HasFactory;
