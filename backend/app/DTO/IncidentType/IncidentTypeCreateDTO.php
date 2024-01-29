@@ -1,15 +1,19 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\IncidentType;
 
 use WendellAdriel\ValidatedDTO\ValidatedDTO;
 
-class IncidentStatusCreateDTO extends ValidatedDTO
+class IncidentTypeCreateDTO extends ValidatedDTO
 {
+    public string $name;
+    public string $description;
+
     protected function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name'        => ['required', 'string'],
+            'description' => ['required', 'string']
         ];
     }
 

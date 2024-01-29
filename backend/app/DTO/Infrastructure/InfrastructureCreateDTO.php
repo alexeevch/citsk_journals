@@ -1,16 +1,20 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Infrastructure;
 
 use WendellAdriel\ValidatedDTO\ValidatedDTO;
 
-class IncidentTypeCreateDTO extends ValidatedDTO
+class InfrastructureCreateDTO extends ValidatedDTO
 {
+    public string $ipv4;
+    public string $name;
+    public string $owner;
+
     protected function rules(): array
     {
         return [
-            'name'        => ['required', 'string'],
-            'description' => ['required', 'string']
+            'ipv4' => ['required', 'ipv4'],
+            'name' => ['required', 'string'],
         ];
     }
 

@@ -1,8 +1,11 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Incident;
 
-use App\Models\IncidentType;
+use App\DTO\Attacker\AttackerCreateDTO;
+use App\DTO\IncidentStatus\IncidentStatusCreateDTO;
+use App\DTO\IncidentType\IncidentTypeCreateDTO;
+use App\DTO\Infrastructure\InfrastructureCreateDTO;
 use DateTime;
 use WendellAdriel\ValidatedDTO\Casting\CarbonCast;
 use WendellAdriel\ValidatedDTO\Casting\DTOCast;
