@@ -4,7 +4,9 @@ namespace App\Repository\Incident;
 
 use App\DTO\Incident\IncidentCreateDTO;
 use App\DTO\Incident\IncidentUpdateDTO;
+use App\Models\Attacker;
 use App\Models\Incident;
+use App\Models\Infrastructure;
 use Illuminate\Database\Eloquent\Collection;
 
 class IncidentRepository implements IncidentRepositoryInterface
@@ -13,17 +15,19 @@ class IncidentRepository implements IncidentRepositoryInterface
     /**
      * @inheritDoc
      */
-    function create(IncidentCreateDTO $incidentCreateDTO): Incident
+    function create(IncidentCreateDTO $incidentCreateDTO, Attacker $attacker, Infrastructure $infrastructure): Incident
     {
         $incident = new Incident();
-        $incident->attacker = $incidentCreateDTO->attacker;
-        $incident->infrastructure = $incidentCreateDTO->infrastructure;
-        $incident->type = $incidentCreateDTO->type;
-        $incident->status = $incidentCreateDTO->status;
         $incident->description = $incidentCreateDTO->description;
         $incident->detection_time = $incidentCreateDTO->detection_time;
         $incident->group_alert_time = $incidentCreateDTO->group_alert_time;
         $incident->supervisor_alert_time = $incidentCreateDTO->supervisor_alert_time;
+        $incident->type = $incidentCreateDTO->type;
+        $incident->status = $incidentCreateDTO->status;
+
+        $incident->attacker()->associate($attacker);
+        $incident->infrastructure()->associate($infrastructure);
+
         $incident->save();
 
         return $incident;
