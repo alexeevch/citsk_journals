@@ -36,14 +36,14 @@ class Incident extends Model
         "supervisor_alert_time",
     ];
 
-    public function attacker(): HasOne
+    public function attacker(): BelongsTo
     {
-        return $this->hasOne(Attacker::class, "attacker_id");
+        return $this->belongsTo(Attacker::class, "attacker_id");
     }
 
-    public function infrastructure(): HasOne
+    public function infrastructure(): BelongsTo
     {
-        return $this->hasOne(Infrastructure::class, "infrastructure_id");
+        return $this->belongsTo(Infrastructure::class, "infrastructure_id");
     }
 
     public function incidentType(): BelongsTo
