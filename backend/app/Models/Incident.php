@@ -46,12 +46,12 @@ class Incident extends Model
         return $this->belongsTo(Infrastructure::class, "infrastructure_id");
     }
 
-    public function incidentType(): BelongsTo
+    public function type(): BelongsTo
     {
         return $this->belongsTo(IncidentType::class, "type_id");
     }
 
-    public function incidentStatus(): BelongsTo
+    public function status(): BelongsTo
     {
         return $this->belongsTo(IncidentStatus::class, "status_id");
     }
