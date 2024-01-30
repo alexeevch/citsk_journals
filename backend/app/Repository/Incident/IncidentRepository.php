@@ -5,6 +5,7 @@ namespace App\Repository\Incident;
 use App\DTO\Incident\IncidentCreateDTO;
 use App\DTO\Incident\IncidentUpdateDTO;
 use App\Models\Incident;
+use Illuminate\Database\Eloquent\Collection;
 
 class IncidentRepository implements IncidentRepositoryInterface
 {
@@ -42,5 +43,29 @@ class IncidentRepository implements IncidentRepositoryInterface
         $incident->save();
 
         return $incident;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function findAll(): Collection
+    {
+        return Incident::all();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function findById(int $id): Incident
+    {
+        return Incident::findOrFail($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function delete(int $id): bool
+    {
+        return (bool) Incident::findOrFail($id)->delete();
     }
 }
