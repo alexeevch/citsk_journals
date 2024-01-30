@@ -34,14 +34,33 @@ class IncidentRepository implements IncidentRepositoryInterface
     }
 
     /**
+     * @param  IncidentUpdateDTO  $incidentUpdateDTO
+     * @param  Attacker           $attacker
+     * @param  Infrastructure     $infrastructure  *
+     *
      * @inheritDoc
      */
-    function update(IncidentUpdateDTO $incidentUpdateDTO): Incident
-    {
+    function update(
+        IncidentUpdateDTO $incidentUpdateDTO,
+        ?Attacker $attacker,
+        ?Infrastructure $infrastructure
+    ): Incident {
         $incident = Incident::findOrFail($incidentUpdateDTO->id);
 
         foreach ($incidentUpdateDTO->toArray() as $key => $value) {
+            if (str_contains($key, "attacker") || str_contains($key, "infrastructure")) {
+                continue;
+            }
+
             $incident->$key = $value;
+
+            if ($attacker) {
+                $incident->attacker()->associate($attacker);
+            }
+
+            if ($infrastructure) {
+                $incident->infrastructure()->associate(($infrastructure));
+            }
         }
 
         $incident->save();

@@ -22,10 +22,16 @@ interface IncidentRepositoryInterface
 
     /**
      * @param  IncidentUpdateDTO  $incidentUpdateDTO
+     * @param  Attacker|null  $attacker
+     * @param  Infrastructure|null  $infrastructure
      *
      * @return Incident
      */
-    function update(IncidentUpdateDTO $incidentUpdateDTO): Incident;
+    function update(
+        IncidentUpdateDTO $incidentUpdateDTO,
+        ?Attacker $attacker,
+        ?Infrastructure $infrastructure
+    ): Incident;
 
     /**
      * @return Collection
