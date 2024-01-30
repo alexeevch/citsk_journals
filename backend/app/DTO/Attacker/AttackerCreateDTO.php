@@ -19,15 +19,13 @@ class AttackerCreateDTO extends ValidatedDTO
         ];
     }
 
-    protected function defaults(): array
+    protected function casts(): array
     {
         return [];
     }
 
-    protected function casts(): array
+    protected function defaults(): array
     {
-        return [
-
-        ];
+        return [];
     }
 }
