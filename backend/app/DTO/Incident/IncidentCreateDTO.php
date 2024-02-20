@@ -13,8 +13,8 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 
 class IncidentCreateDTO extends ValidatedDTO
 {
-    public array $attacker;
-    public array $infrastructure;
+    public AttackerCreateDTO $attacker;
+    public InfrastructureCreateDTO $infrastructure;
     public array $type;
     public array $status;
     public string $description;

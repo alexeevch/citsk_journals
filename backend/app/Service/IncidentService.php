@@ -59,9 +59,7 @@ class IncidentService implements IncidentServiceInterface
      * @throws Throwable
      */
     function update(
-        IncidentUpdateDTO $incidentUpdateDTO,
-        Attacker $attacker,
-        Infrastructure $infrastructure
+        IncidentUpdateDTO $incidentUpdateDTO
     ): IncidentResource {
         return DB::transaction(function () use ($incidentUpdateDTO) {
             $attacker = null;
@@ -77,7 +75,7 @@ class IncidentService implements IncidentServiceInterface
 
             $incident = $this->incidentRepository->update($incidentUpdateDTO, $attacker, $infrastructure);
 
-            return new IncidentRepository($incident);
+            return new IncidentResource($incident);
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\DTO\Incident;
 
+use App\DTO\IncidentType\IncidentTypeUpdateDTO;
 use DateTime;
 use App\DTO\Attacker\AttackerUpdateDTO;
 use App\DTO\IncidentStatus\IncidentStatusUpdateDTO;
@@ -13,8 +14,8 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class IncidentUpdateDTO extends ValidatedDTO
 {
     public int $id;
-    public ?array $attacker = null;
-    public ?array $infrastructure = null;
+    public ?AttackerUpdateDTO $attacker = null;
+    public ?InfrastructureUpdateDTO $infrastructure = null;
     public ?array $type = null;
     public ?array $status = null;
     public ?string $description = null;
@@ -42,7 +43,7 @@ class IncidentUpdateDTO extends ValidatedDTO
         return [
             'attacker'              => new DTOCast(AttackerUpdateDTO::class),
             'infrastructure'        => new DTOCast(InfrastructureUpdateDTO::class),
-            'type'                  => new DTOCast(IncidentStatusUpdateDTO::class),
+            'type'                  => new DTOCast(IncidentTypeUpdateDTO::class),
             'status'                => new DTOCast(IncidentStatusUpdateDTO::class),
             'detection_time'        => new CarbonCast(),
             'group_alert_time'      => new CarbonCast(),

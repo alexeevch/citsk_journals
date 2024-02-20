@@ -35,11 +35,7 @@ interface IncidentServiceInterface
      *
      * @return IncidentResource
      */
-    function update(
-        IncidentUpdateDTO $incidentUpdateDTO,
-        Attacker $attacker,
-        Infrastructure $infrastructure
-    ): IncidentResource;
+    function update(IncidentUpdateDTO $incidentUpdateDTO): IncidentResource;
 
     /**
      * @param  int  $id
