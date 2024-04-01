@@ -23,8 +23,8 @@ return new class extends Migration {
             $table->timestamps();
 
 
-            $table->foreign("attacker_id")->references("id")->on("attackers");
-            $table->foreign("infrastructure_id")->references("id")->on("infrastructures");
+            $table->foreign("attacker_id")->references("id")->on("attackers")->onDelete("cascade");
+            $table->foreign("infrastructure_id")->references("id")->on("infrastructures")->onDelete("cascade");
             $table->foreign("type_id")->references('id')->on("incident_types");
             $table->foreign("status_id")->references("id")->on("incident_statuses");
         });
