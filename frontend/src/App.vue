@@ -8,9 +8,7 @@ import NavigationPanel from '@/components/NavigationPanel.vue';
     <el-container>
       <NavigationPanel routes="" />
       <el-main>
-        <slot>
-          <RouterView />
-        </slot>
+        <RouterView />
       </el-main>
     </el-container>
   </div>
