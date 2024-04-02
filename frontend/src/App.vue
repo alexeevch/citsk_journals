@@ -1,10 +1,9 @@
 <script setup>
-import NavigationPanel from '@/components/NavigationPanel.vue'
+import NavigationPanel from '@/components/NavigationPanel.vue';
 </script>
 
 <template>
   <div class="common-layout">
-
     <el-header class="header">Header</el-header>
     <el-container>
       <NavigationPanel routes="" />
@@ -14,7 +13,6 @@ import NavigationPanel from '@/components/NavigationPanel.vue'
         </slot>
       </el-main>
     </el-container>
-
   </div>
 </template>
 

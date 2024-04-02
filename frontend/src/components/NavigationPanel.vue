@@ -1,19 +1,18 @@
 <script setup>
-import { Aim, House, Notebook, School } from '@element-plus/icons-vue'
+import { Aim, House, Notebook, School } from '@element-plus/icons-vue';
 
 const props = defineProps({
   routes: {
     required: true,
     type: Array
   }
-})
+});
 </script>
 
 <template>
   <el-aside width="200px">
     <el-scrollbar>
       <el-menu class="menu">
-
         <router-link to="/home">
           <el-menu-item>
             <el-icon>
@@ -25,7 +24,6 @@ const props = defineProps({
           </el-menu-item>
         </router-link>
 
-
         <router-link to="/journal">
           <el-menu-item>
             <el-icon>
@@ -35,7 +33,6 @@ const props = defineProps({
           </el-menu-item>
         </router-link>
 
-
         <router-link to="/attackers">
           <el-menu-item>
             <el-icon>
@@ -44,7 +41,6 @@ const props = defineProps({
             Злоумышленники
           </el-menu-item>
         </router-link>
-
 
         <router-link to="/infrastructures">
           <el-menu-item>
