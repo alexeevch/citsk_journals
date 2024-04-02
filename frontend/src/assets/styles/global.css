@@ -1,0 +1,36 @@
+@import "fonts.css";
+@import "normalize.css";
+
+:root {
+    --color-primary: #56122b;
+    --color-bg-primary: #024496;
+    --color-bg-secondary: #f7f7f7;
+    --color-secondary: #c21d3f;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #313171;
+    --color-link: #00b57FF;
+    --color-inactive: #c3c3c3;
+}
+
+body {
+    min-height: 100vh;
+    transition: color 0.5s,
+    background-color 0.5s;
+    line-height: 1.6;
+    font-family: Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
