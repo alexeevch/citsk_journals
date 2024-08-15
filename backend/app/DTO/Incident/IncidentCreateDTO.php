@@ -3,8 +3,6 @@
 namespace App\DTO\Incident;
 
 use App\DTO\Attacker\AttackerCreateDTO;
-use App\DTO\IncidentStatus\IncidentStatusCreateDTO;
-use App\DTO\IncidentType\IncidentTypeCreateDTO;
 use App\DTO\Infrastructure\InfrastructureCreateDTO;
 use DateTime;
 use WendellAdriel\ValidatedDTO\Casting\CarbonCast;
@@ -21,7 +19,6 @@ class IncidentCreateDTO extends ValidatedDTO
     public DateTime $detection_time;
     public DateTime $group_alert_time;
     public DateTime $supervisor_alert_time;
-
 
     protected function rules(): array
     {
@@ -42,8 +39,6 @@ class IncidentCreateDTO extends ValidatedDTO
         return [
             'attacker'              => new DTOCast(AttackerCreateDTO::class),
             'infrastructure'        => new DTOCast(InfrastructureCreateDTO::class),
-            'type'                  => new DTOCast(IncidentTypeCreateDTO::class),
-            'status'                => new DTOCast(IncidentStatusCreateDTO::class),
             'detection_time'        => new CarbonCast(),
             'group_alert_time'      => new CarbonCast(),
             'supervisor_alert_time' => new CarbonCast(),
@@ -54,5 +49,4 @@ class IncidentCreateDTO extends ValidatedDTO
     {
         return [];
     }
-
 }
