@@ -6,7 +6,7 @@ use App\DTO\Attacker\AttackerCreateDTO;
 use Tests\TestCase;
 
 
-class CreateDTOTest extends TestCase
+class AttackerCreateDTOTest extends TestCase
 {
     /**
      * @test
