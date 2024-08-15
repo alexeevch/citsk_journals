@@ -30,7 +30,7 @@ class IncidentCreateDTO extends ValidatedDTO
             'infrastructure'        => ['required', 'array'],
             'type'                  => ['required', 'array'],
             'status'                => ['required', 'array'],
-            'description'           => ['required', 'string'],
+            'description'           => ['string'],
             'detection_time'        => ['required', 'date'],
             'group_alert_time'      => ['required', 'date'],
             'supervisor_alert_time' => ['required', 'date'],

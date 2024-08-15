@@ -14,7 +14,7 @@ class AttackerCreateDTO extends ValidatedDTO
     {
         return [
             'ipv4'        => ['required', 'ipv4'],
-            'description' => ['required', 'string'],
+            'description' => ['string'],
             'country'     => ['required', 'string'],
         ];
     }

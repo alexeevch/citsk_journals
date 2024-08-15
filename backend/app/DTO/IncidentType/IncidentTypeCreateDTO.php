@@ -13,7 +13,7 @@ class IncidentTypeCreateDTO extends ValidatedDTO
     {
         return [
             'name'        => ['required', 'string'],
-            'description' => ['required', 'string']
+            'description' => ['string']
         ];
     }
 
