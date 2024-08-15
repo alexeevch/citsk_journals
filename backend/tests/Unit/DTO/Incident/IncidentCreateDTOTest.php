@@ -1,6 +1,6 @@
 <?php
 
-namespace DTO\Incident;
+namespace Tests\Unit\DTO\Incident;
 
 use App\DTO\Attacker\AttackerCreateDTO;
 use App\DTO\Incident\IncidentCreateDTO;
