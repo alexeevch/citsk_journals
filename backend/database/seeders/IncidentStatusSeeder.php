@@ -14,13 +14,10 @@ class IncidentStatusSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
-            "Новая",
-            "Закрыта"
+            ["name" => "Новая"],
+            ["name" => "Закрыта"]
         ];
 
-        IncidentStatus::factory()
-                      ->count(count($statuses))
-                      ->sequence(fn(Sequence $sequence) => ['name' => $statuses[$sequence->index]])
-                      ->create();
+        IncidentStatus::insert($statuses);
     }
 }
