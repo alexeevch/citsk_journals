@@ -8,6 +8,9 @@ use Tests\TestCase;
 
 class AttackerUpdateDTOTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function testValidData(): void
     {
         $data = [
@@ -25,6 +28,9 @@ class AttackerUpdateDTOTest extends TestCase
         $this->assertEquals('US', $dto->country);
     }
 
+    /**
+     * @test
+     */
     public function testInvalidIpv4(): void
     {
         $data = [
@@ -39,6 +45,9 @@ class AttackerUpdateDTOTest extends TestCase
         new AttackerUpdateDTO($data);
     }
 
+    /**
+     * @test
+     */
     public function testMissingId(): void
     {
         $data = [
@@ -52,6 +61,9 @@ class AttackerUpdateDTOTest extends TestCase
         new AttackerUpdateDTO($data);
     }
 
+    /**
+     * @test
+     */
     public function testInvalidId(): void
     {
         $data = [
@@ -66,6 +78,9 @@ class AttackerUpdateDTOTest extends TestCase
         new AttackerUpdateDTO($data);
     }
 
+    /**
+     * @test
+     */
     public function testOptionalFields(): void
     {
         $data = [
