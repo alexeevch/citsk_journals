@@ -13,8 +13,9 @@ class InfrastructureCreateDTO extends ValidatedDTO
     protected function rules(): array
     {
         return [
-            'ipv4' => ['required', 'ipv4'],
-            'name' => ['required', 'string'],
+            'ipv4'  => ['required', 'ipv4'],
+            'name'  => ['required', 'string'],
+            'owner' => ['required', 'string']
         ];
     }
 
