@@ -7,18 +7,17 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class AttackerUpdateDTO extends ValidatedDTO
 {
     public int $id;
-    public ?string $ipv4 = null;
-    public ?string $description = null;
-    public ?string $country = null;
+    public ?string $ipv4;
+    public ?string $description;
+    public ?string $country;
 
     protected function rules(): array
     {
         return [
-            'id'          => ['require', 'integer'],
+            'id'          => ['required', 'integer'],
             'ipv4'        => ['ipv4'],
             'description' => ['string'],
             'country'     => ['string']
-
         ];
     }
 
