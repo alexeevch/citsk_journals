@@ -7,7 +7,7 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class IncidentTypeCreateDTO extends ValidatedDTO
 {
     public string $name;
-    public string $description;
+    public ?string $description;
 
     protected function rules(): array
     {

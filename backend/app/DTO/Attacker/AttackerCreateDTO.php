@@ -7,7 +7,7 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class AttackerCreateDTO extends ValidatedDTO
 {
     public string $ipv4;
-    public string $description;
+    public ?string $description;
     public string $country;
 
     protected function rules(): array

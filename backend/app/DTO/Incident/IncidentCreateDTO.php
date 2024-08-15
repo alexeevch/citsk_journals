@@ -17,7 +17,7 @@ class IncidentCreateDTO extends ValidatedDTO
     public InfrastructureCreateDTO $infrastructure;
     public array $type;
     public array $status;
-    public string $description;
+    public ?string $description;
     public DateTime $detection_time;
     public DateTime $group_alert_time;
     public DateTime $supervisor_alert_time;
