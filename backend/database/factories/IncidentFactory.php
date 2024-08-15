@@ -30,8 +30,8 @@ class IncidentFactory extends Factory
             'infrastructure_id'     => function () {
                 return Infrastructure::factory()->create()->id;
             },
-            'type_id'               => IncidentType::inRandomOrder()->first()->value("id"),
-            'status_id'             => IncidentStatus::inRandomOrder()->first()->value("id"),
+            'type_id'               => IncidentType::pluck("id")->random(),
+            'status_id'             => IncidentStatus::pluck("id")->random(),
             'description'           => $this->faker->text(255),
             "detection_time"        => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
             "group_alert_time"      => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
