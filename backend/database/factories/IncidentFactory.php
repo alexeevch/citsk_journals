@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Attacker;
 use App\Models\Incident;
+use App\Models\IncidentStatus;
+use App\Models\IncidentType;
 use App\Models\Infrastructure;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,8 +30,8 @@ class IncidentFactory extends Factory
             'infrastructure_id'     => function () {
                 return Infrastructure::factory()->create()->id;
             },
-            'type_id'               => 1,
-            'status_id'             => 1,
+            'type_id'               => IncidentType::inRandomOrder()->first()->value("id"),
+            'status_id'             => IncidentStatus::inRandomOrder()->first()->value("id"),
             'description'           => $this->faker->text(255),
             "detection_time"        => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
             "group_alert_time"      => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
