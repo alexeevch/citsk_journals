@@ -11,8 +11,8 @@ class UserUpdateDTO extends ValidatedDTO
     public ?string $email = null;
     public ?string $login = null;
     public ?string $password = null;
-    public ?string $firstName = null;
-    public ?string $lastName = null;
+    public ?string $first_name = null;
+    public ?string $last_name = null;
     public ?string $patronymic = null;
     public ?string $phone = null;
 

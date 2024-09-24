@@ -10,10 +10,12 @@ class UserCreateDTO extends ValidatedDTO
     public string $email;
     public string $login;
     public string $password;
-    public string $firstName;
-    public string $lastName;
+    public string $first_name;
+    public string $last_name;
     public ?string $patronymic;
+    public string $post;
     public string $phone;
+    public ?bool $is_blocked;
 
 
     protected function rules(): array
@@ -26,6 +28,7 @@ class UserCreateDTO extends ValidatedDTO
             'patronymic' => ['string'],
             'post'       => ['required', 'string'],
             'phone'      => ['required', 'string'],
+            'is_blocked' => ['boolean'],
             'password'   => [
                 'required', Password::min(8)
                                     ->mixedCase()
