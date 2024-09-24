@@ -6,8 +6,6 @@ use App\DTO\Incident\IncidentCreateDTO;
 use App\DTO\Incident\IncidentUpdateDTO;
 use App\Http\Resources\Incident\IncidentCollection;
 use App\Http\Resources\Incident\IncidentResource;
-use App\Models\Attacker;
-use App\Models\Infrastructure;
 use App\Repository\Attacker\AttackerRepository;
 use App\Repository\Incident\IncidentRepository;
 use App\Repository\Infrastructure\InfrastructureRepository;
