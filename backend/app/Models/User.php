@@ -32,6 +32,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
+        'login',
         'password',
         'updated_at',
     ];
@@ -45,7 +46,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * @return string
      */
-    public function getFullName(): string
+    public function getFullNameAttribute(): string
     {
         return "{$this->last_name} {$this->first_name}".($this->patronymic ? " {$this->patronymic}" : "");
     }
