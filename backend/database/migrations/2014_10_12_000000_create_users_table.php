@@ -12,11 +12,15 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->boolean("is_blocked")->default(false);
+            $table->string("login")->unique();
+            $table->string("password");
+            $table->string("first_name");
+            $table->string("last_name");
+            $table->string("patronymic")->nullable();
+            $table->string("phone")->nullable();
+            $table->string("email")->unique();
+            $table->string("post")->nullable();
             $table->timestamps();
         });
     }
