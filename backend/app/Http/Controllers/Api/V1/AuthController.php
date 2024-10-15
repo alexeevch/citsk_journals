@@ -10,6 +10,7 @@ use Hash;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class AuthController extends Controller
 {
@@ -24,7 +25,6 @@ class AuthController extends Controller
         }
 
         $user = new User;
-
         $user->email = $data->email;
         $user->login = $data->login;
         $user->password = Hash::make($data->password);
@@ -37,5 +37,43 @@ class AuthController extends Controller
         $user->save();
 
         return $this->jsonSuccess($user, 201);
+    }
+
+    public function login(Request $request): JsonResponse
+    {
+        try {
+            $request->validate([
+                'login'    => 'required|string',
+                'password' => 'required|string'
+            ]);
+        } catch (ValidationException $e) {
+            return $this->jsonError(0, $e->getMessage(), SymfonyResponse::HTTP_BAD_REQUEST);
+        }
+
+        if (!$token = auth()->attempt([
+            "login"      => $request->get('login'),
+            "password"   => $request->get('password'),
+            "is_blocked" => false
+        ])) {
+            return $this->jsonUnathorized();
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string  $token
+     *
+     * @return JsonResponse
+     */
+    protected function respondWithToken(string $token): JsonResponse
+    {
+        return $this->jsonSuccess([
+            'access_token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in'   => auth()->factory()->getTTL() * 60
+        ]);
     }
 }
