@@ -29,8 +29,8 @@ class Constants
     |--------------------------------------------------------------------------
      */
 
-    public const ROOT = "root";
-    public const ADMIN = "admin";
-    public const OBSERVER = "observer";
+    public const ROOT_ROLE = "root";
+    public const ADMIN_ROLE = "admin";
+    public const OBSERVER_ROLE = "observer";
 
 }

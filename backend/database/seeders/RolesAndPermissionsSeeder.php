@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -52,7 +53,7 @@ class RolesAndPermissionsSeeder extends Seeder
             app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
             //observer role
-            Role::create(['name' => 'observer'])
+            Role::create(['name' => Constants::OBSERVER_ROLE])
                 ->givePermissionTo([
                     'create incidents',
                     'read incidents',
@@ -61,7 +62,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 ]);
 
             //admin role
-            Role::create(['name' => 'admin'])->givePermissionTo([
+            Role::create(['name' => Constants::ADMIN_ROLE])->givePermissionTo([
                 'create incidents',
                 'read incidents',
                 'update incidents',
@@ -85,7 +86,7 @@ class RolesAndPermissionsSeeder extends Seeder
             ]);
 
             //root role
-            Role::create(['name' => 'root'])->givePermissionTo(Permission::all());
+            Role::create(['name' => Constants::ROOT_ROLE])->givePermissionTo(Permission::all());
         }
     }
 }
