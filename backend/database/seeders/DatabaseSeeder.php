@@ -11,5 +11,6 @@ class DatabaseSeeder extends Seeder
         $this->call(IncidentTypeSeeder::class);
         $this->call(IncidentStatusSeeder::class);
         $this->call(IncidentSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
     }
 }

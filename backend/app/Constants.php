@@ -31,6 +31,6 @@ class Constants
 
     public const ROOT = "root";
     public const ADMIN = "admin";
-    public const ENGINEER = "engineer";
+    public const OBSERVER = "observer";
 
 }
