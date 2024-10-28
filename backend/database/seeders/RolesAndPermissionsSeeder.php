@@ -48,22 +48,32 @@ class RolesAndPermissionsSeeder extends Seeder
             Permission::create(['name' => 'incident_status.update', "description" => "Обновление статусов инцидента"]);
             Permission::create(['name' => 'incident_status.delete', "description" => "Удаление статусов инцидента"]);
 
+            // attackers permissions
+            Permission::create(['name' => 'attacker.create', "description" => "Добавление злоумышленников"]);
+            Permission::create(['name' => 'attacker.read', "description" => "Просмотр злоумышленников"]);
+            Permission::create(['name' => 'attacker.update', "description" => "Обновление злоумышленников"]);
+            Permission::create(['name' => 'attacker.delete', "description" => "Удаление злоумышленников"]);
+
+            // roles permissions
+            Permission::create(['name' => 'role.create', "description" => "Добавление ролей"]);
+            Permission::create(['name' => 'role.read', "description" => "Просмотр ролей"]);
+            Permission::create(['name' => 'role.update', "description" => "Обновление ролей"]);
+            Permission::create(['name' => 'role.delete', "description" => "Удаление ролей"]);
+
+            // permissions
+            Permission::create(['name' => 'permission.create', "description" => "Добавление прав"]);
+            Permission::create(['name' => 'permission.read', "description" => "Просмотр прав"]);
+            Permission::create(['name' => 'permission.update', "description" => "Обновление прав"]);
+            Permission::create(['name' => 'permission.delete', "description" => "Удаление прав"]);
+
 
             // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
             app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-            //observer role
-            Role::create(['name' => Constants::OBSERVER_ROLE, "description" => "Оперативный дежурный"])
-                ->givePermissionTo([
-                    'incident.create',
-                    'incident.read',
-                    'incident.update',
-                    'incident.delete',
-                    'incident_type.create',
-                    'incident_type.read',
-                    'incident_type.update',
-                    'incident_type.delete',
-                ]);
+            //root role
+            Role::create([
+                'name' => Constants::ROOT_ROLE, "description" => "Повелитель системой"
+            ])->givePermissionTo(Permission::all());
 
             //admin role
             Role::create(['name' => Constants::ADMIN_ROLE, "description" => "Администратор"])->givePermissionTo([
@@ -87,12 +97,24 @@ class RolesAndPermissionsSeeder extends Seeder
                 'incident_status.read',
                 'incident_status.update',
                 'incident_status.delete',
+                'attacker.create',
+                'attacker.read',
+                'attacker.update',
+                'attacker.delete',
             ]);
 
-            //root role
-            Role::create([
-                'name' => Constants::ROOT_ROLE, "description" => "Супер пользователь"
-            ])->givePermissionTo(Permission::all());
+            //observer role
+            Role::create(['name' => Constants::OBSERVER_ROLE, "description" => "Оперативный дежурный"])
+                ->givePermissionTo([
+                    'incident.create',
+                    'incident.read',
+                    'incident.update',
+                    'incident.delete',
+                    'incident_type.create',
+                    'incident_type.read',
+                    'incident_type.update',
+                    'incident_type.delete',
+                ]);
         }
     }
 }
