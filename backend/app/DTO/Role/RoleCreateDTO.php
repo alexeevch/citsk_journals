@@ -9,6 +9,7 @@ class RoleCreateDTO extends ValidatedDTO
     public string $name;
     public string $description;
     public bool $deletable = false;
+    public array $permissions = [];
 
     protected function rules(): array
     {
@@ -16,6 +17,7 @@ class RoleCreateDTO extends ValidatedDTO
             'name'        => ['required', 'string'],
             'description' => ['string'],
             'deletable'   => ['required', 'boolean'],
+            'permissions' => ['array'],
         ];
     }
 
