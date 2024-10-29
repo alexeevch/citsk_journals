@@ -27,14 +27,12 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
      */
     public function findRoleById(int $id): Role
     {
-        return Role::findOrFail($id);
+        return Role::findById($id);
     }
 
 
     /**
-     * @param  RoleCreateDTO  $roleCreateDTO
-     *
-     * @return Role
+     * @inheritDoc
      */
     public function createRole(RoleCreateDTO $roleCreateDTO): Role
     {
@@ -58,9 +56,7 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  RoleUpdateDTO  $roleUpdateDTO
-     *
-     * @return Role
+     * @inheritDoc
      */
     public function updateRole(RoleUpdateDTO $roleUpdateDTO): Role
     {
@@ -84,9 +80,7 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  mixed  $id
-     *
-     * @return int
+     * @inheritDoc
      */
     public function deleteRole($id): int
     {
@@ -107,7 +101,7 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @return Collection
+     * @inheritDoc
      */
     public function getAllPermissions(): Collection
     {
@@ -120,13 +114,11 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
      */
     public function findPermissionById(int $id): Permission
     {
-        return Permission::findOrFail($id);
+        return Permission::findById($id);
     }
 
     /**
-     * @param  PermissionCreateDTO  $permissionCreateDTO
-     *
-     * @return Permission
+     * @inheritDoc
      */
     public function createPermission(PermissionCreateDTO $permissionCreateDTO): Permission
     {
@@ -140,9 +132,7 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  PermissionUpdateDTO  $permissionUpdateDTO
-     *
-     * @return Permission
+     * @inheritDoc
      */
     public function updatePermission(PermissionUpdateDTO $permissionUpdateDTO): Permission
     {
@@ -163,9 +153,7 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  mixed  $id
-     *
-     * @return int
+     * @inheritDoc
      */
     public function deletePermission($id): int
     {
