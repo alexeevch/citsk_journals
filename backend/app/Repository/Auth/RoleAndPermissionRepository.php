@@ -3,7 +3,7 @@
 namespace App\Repository\Auth;
 
 use App\DTO\Permission\PermissionCreateDTO;
-use App\DTO\Role\PermissionUpdateDTO;
+use App\DTO\Permission\PermissionUpdateDTO;
 use App\DTO\Role\RoleCreateDTO;
 use App\DTO\Role\RoleUpdateDTO;
 use App\Models\Permission;
@@ -17,6 +17,13 @@ interface RoleAndPermissionRepository
      * @return Collection
      */
     public function getAllRoles(): Collection;
+
+    /**
+     * @param  int  $id
+     *
+     * @return Role
+     */
+    public function findRoleById(int $id): Role;
 
     /**
      * @param  RoleCreateDTO  $roleCreateDTO
@@ -43,6 +50,13 @@ interface RoleAndPermissionRepository
      * @return Collection
      */
     public function getAllPermissions(): Collection;
+
+    /**
+     * @param  int  $id
+     *
+     * @return Permission
+     */
+    public function findPermissionById(int $id): Permission;
 
     /**
      * @param  PermissionCreateDTO  $permissionCreateDTO

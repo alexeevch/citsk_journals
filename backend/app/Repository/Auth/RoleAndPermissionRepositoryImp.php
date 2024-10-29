@@ -2,8 +2,8 @@
 
 namespace App\Repository\Auth;
 
-use App\DTO\Role\PermissionUpdateDTO;
-use App\DTO\Role\PermissionCreateDTO;
+use App\DTO\Permission\PermissionUpdateDTO;
+use App\DTO\Permission\PermissionCreateDTO;
 use App\DTO\Role\RoleCreateDTO;
 use App\DTO\Role\RoleUpdateDTO;
 use App\Models\Permission;
@@ -21,6 +21,15 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
         return Role::handleSharedCache(fn() => Role::with('permissions')->whereNot('name', '=',
             Constants::ROOT_ROLE)->get());
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findRoleById(int $id): Role
+    {
+        return Role::findOrFail($id);
+    }
+
 
     /**
      * @param  RoleCreateDTO  $roleCreateDTO
@@ -107,6 +116,14 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
+     * @inheritDoc
+     */
+    public function findPermissionById(int $id): Permission
+    {
+        return Permission::findOrFail($id);
+    }
+
+    /**
      * @param  PermissionCreateDTO  $permissionCreateDTO
      *
      * @return Permission
@@ -123,7 +140,6 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  int                  $id
      * @param  PermissionUpdateDTO  $permissionUpdateDTO
      *
      * @return Permission
