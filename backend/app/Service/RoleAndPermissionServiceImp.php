@@ -30,7 +30,7 @@ class RoleAndPermissionServiceImp implements RoleAndPermissionService
 
     public function findRoleById(int $id): RoleResource
     {
-        return new RoleResource($this->roleAndPermissionRepository->$this->findRoleById($id));
+        return new RoleResource($this->roleAndPermissionRepository->findRoleById($id));
     }
 
     public function updateRole(RoleUpdateDTO $roleUpdateDTO): RoleResource
