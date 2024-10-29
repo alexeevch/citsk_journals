@@ -3,8 +3,18 @@
 namespace App\Models;
 
 
+use App\Traits\HasCache;
+
+/**
+ * @property int     $id
+ * @property string  $name
+ * @property string  $description
+ * @property boolean $deletable
+ */
 class Permission extends \Spatie\Permission\Models\Permission
 {
+    use HasCache;
+
     protected $guarded = [
         'deletable',
     ];
