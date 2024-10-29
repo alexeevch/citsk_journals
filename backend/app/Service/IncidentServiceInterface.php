@@ -9,7 +9,7 @@ use App\Http\Resources\Incident\IncidentResource;
 use App\Models\Attacker;
 use App\Models\Infrastructure;
 
-interface IncidentServiceInterface
+interface IncidentService
 {
     /**
      * @param  IncidentCreateDTO  $incidentCreateDTO

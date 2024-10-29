@@ -6,18 +6,18 @@ use App\DTO\Incident\IncidentCreateDTO;
 use App\DTO\Incident\IncidentUpdateDTO;
 use App\Http\Resources\Incident\IncidentCollection;
 use App\Http\Resources\Incident\IncidentResource;
-use App\Repository\Attacker\AttackerRepository;
-use App\Repository\Incident\IncidentRepository;
-use App\Repository\Infrastructure\InfrastructureRepository;
+use App\Repository\Attacker\AttackerRepositoryImp;
+use App\Repository\Incident\IncidentRepositoryImp;
+use App\Repository\Infrastructure\InfrastructureRepositoryImp;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-class IncidentService implements IncidentServiceInterface
+class IncidentService implements IncidentService
 {
     public function __construct(
-        private readonly IncidentRepository $incidentRepository,
-        private readonly AttackerRepository $attackerRepository,
-        private readonly InfrastructureRepository $infrastructureRepository,
+        private readonly IncidentRepositoryImp $incidentRepository,
+        private readonly AttackerRepositoryImp $attackerRepository,
+        private readonly InfrastructureRepositoryImp $infrastructureRepository,
     ) {
     }
 

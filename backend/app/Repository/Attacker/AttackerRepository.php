@@ -6,36 +6,19 @@ use App\DTO\Attacker\AttackerCreateDTO;
 use App\DTO\Attacker\AttackerUpdateDTO;
 use App\Models\Attacker;
 
-class AttackerRepository implements AttackerRepositoryInterface
+interface AttackerRepository
 {
+    /**
+     * @param  AttackerCreateDTO  $attackerCreateDTO
+     *
+     * @return Attacker
+     */
+    function create(AttackerCreateDTO $attackerCreateDTO): Attacker;
 
     /**
-     * @inheritDoc
+     * @param  AttackerUpdateDTO  $attackerUpdateDTO
+     *
+     * @return Attacker
      */
-    function create(AttackerCreateDTO $attackerCreateDTO): Attacker
-    {
-        $attacker = new Attacker();
-        $attacker->ipv4 = $attackerCreateDTO->ipv4;
-        $attacker->description = $attackerCreateDTO->description;
-        $attacker->country = $attackerCreateDTO->country;
-        $attacker->save();
-
-        return $attacker;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    function update(AttackerUpdateDTO $attackerUpdateDTO): Attacker
-    {
-        $attacker = Attacker::findOrFail($attackerUpdateDTO->id);
-
-        foreach ($attackerUpdateDTO->toArray() as $key => $value) {
-            $attacker->$key = $value;
-        }
-
-        $attacker->save();
-
-        return $attacker;
-    }
+    function update(AttackerUpdateDTO $attackerUpdateDTO): Attacker;
 }
