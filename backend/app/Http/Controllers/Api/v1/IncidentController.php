@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\v1;
 
 use App\DTO\Incident\IncidentCreateDTO;
 use App\DTO\Incident\IncidentUpdateDTO;

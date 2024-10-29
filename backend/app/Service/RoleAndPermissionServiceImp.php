@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
+use App\DTO\Permission\PermissionCreateDTO;
 use App\DTO\Role\PermissionUpdateDTO;
-use App\DTO\Role\PermissonCreateDTO;
 use App\DTO\Role\RoleCreateDTO;
 use App\DTO\Role\RoleUpdateDTO;
 use App\Http\Resources\Auth\PermissionCollection;
@@ -48,7 +48,7 @@ class RoleAndPermissionServiceImp implements RoleAndPermissionService
         return new PermissionCollection($this->roleAndPermissionRepository->getAllPermissions());
     }
 
-    public function createPermission(PermissonCreateDTO $permissionCreateDTO): PermissionResource
+    public function createPermission(PermissionCreateDTO $permissionCreateDTO): PermissionResource
     {
         return new PermissionResource($this->roleAndPermissionRepository->createPermission($permissionCreateDTO));
     }

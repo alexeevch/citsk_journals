@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
+use App\DTO\Permission\PermissionCreateDTO;
 use App\DTO\Role\PermissionUpdateDTO;
-use App\DTO\Role\PermissonCreateDTO;
 use App\DTO\Role\RoleCreateDTO;
 use App\DTO\Role\RoleUpdateDTO;
 use App\Http\Resources\Auth\PermissionCollection;
@@ -25,7 +25,7 @@ interface RoleAndPermissionService
 
     public function findPermissionAll(): PermissionCollection;
 
-    public function createPermission(PermissonCreateDTO $permissionCreateDTO): PermissionResource;
+    public function createPermission(PermissionCreateDTO $permissionCreateDTO): PermissionResource;
 
     public function findPermissionById(int $id): PermissionResource;
 

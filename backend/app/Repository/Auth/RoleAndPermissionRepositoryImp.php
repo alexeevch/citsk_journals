@@ -3,7 +3,7 @@
 namespace App\Repository\Auth;
 
 use App\DTO\Role\PermissionUpdateDTO;
-use App\DTO\Role\PermissonCreateDTO;
+use App\DTO\Role\PermissionCreateDTO;
 use App\DTO\Role\RoleCreateDTO;
 use App\DTO\Role\RoleUpdateDTO;
 use App\Models\Permission;
@@ -107,11 +107,11 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  PermissonCreateDTO  $permissionCreateDTO
+     * @param  PermissionCreateDTO  $permissionCreateDTO
      *
      * @return Permission
      */
-    public function createPermission(PermissonCreateDTO $permissionCreateDTO): Permission
+    public function createPermission(PermissionCreateDTO $permissionCreateDTO): Permission
     {
         $permission = new Permission;
         $permission->deletable = true;

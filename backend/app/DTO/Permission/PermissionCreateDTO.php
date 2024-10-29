@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DTO\Role;
+namespace App\DTO\Permission;
 
 use WendellAdriel\ValidatedDTO\ValidatedDTO;
 
-class PermissonCreateDTO extends ValidatedDTO
+class PermissionCreateDTO extends ValidatedDTO
 {
     public string $name;
     public string $description;
