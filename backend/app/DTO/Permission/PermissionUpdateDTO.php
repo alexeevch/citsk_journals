@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\Role;
+namespace App\DTO\Permission;
 
 use WendellAdriel\ValidatedDTO\ValidatedDTO;
 

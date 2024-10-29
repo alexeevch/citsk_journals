@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\DTO\Permission\PermissionCreateDTO;
-use App\DTO\Role\PermissionUpdateDTO;
+use App\DTO\Permission\PermissionUpdateDTO;
 use App\DTO\Role\RoleCreateDTO;
 use App\DTO\Role\RoleUpdateDTO;
 use App\Http\Resources\Auth\PermissionCollection;

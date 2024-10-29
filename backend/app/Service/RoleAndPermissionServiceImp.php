@@ -3,18 +3,18 @@
 namespace App\Service;
 
 use App\DTO\Permission\PermissionCreateDTO;
-use App\DTO\Role\PermissionUpdateDTO;
+use App\DTO\Permission\PermissionUpdateDTO;
 use App\DTO\Role\RoleCreateDTO;
 use App\DTO\Role\RoleUpdateDTO;
 use App\Http\Resources\Auth\PermissionCollection;
 use App\Http\Resources\Auth\PermissionResource;
 use App\Http\Resources\Auth\RoleCollection;
 use App\Http\Resources\Auth\RoleResource;
-use App\Repository\Auth\RoleAndPermissionRepository;
+use App\Repository\Auth\RoleAndPermissionRepositoryImp;
 
 class RoleAndPermissionServiceImp implements RoleAndPermissionService
 {
-    public function __construct(private readonly RoleAndPermissionRepository $roleAndPermissionRepository)
+    public function __construct(private readonly RoleAndPermissionRepositoryImp $roleAndPermissionRepository)
     {
     }
 
@@ -30,7 +30,7 @@ class RoleAndPermissionServiceImp implements RoleAndPermissionService
 
     public function findRoleById(int $id): RoleResource
     {
-        return new RoleResource($this->findRoleById($id));
+        return new RoleResource($this->roleAndPermissionRepository->$this->findRoleById($id));
     }
 
     public function updateRole(RoleUpdateDTO $roleUpdateDTO): RoleResource
@@ -55,7 +55,7 @@ class RoleAndPermissionServiceImp implements RoleAndPermissionService
 
     public function findPermissionById(int $id): PermissionResource
     {
-        return new PermissionResource($this->findPermissionById($id));
+        return new PermissionResource($this->roleAndPermissionRepository->findPermissionById($id));
     }
 
     public function updatePermission(PermissionUpdateDTO $permissionUpdateDTO): PermissionResource
