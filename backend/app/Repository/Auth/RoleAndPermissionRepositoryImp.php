@@ -22,7 +22,11 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
             Constants::ROOT_ROLE)->get());
     }
 
-
+    /**
+     * @param  RoleCreateDTO  $roleCreateDTO
+     *
+     * @return Role
+     */
     public function createRole(RoleCreateDTO $roleCreateDTO): Role
     {
         $role = new Role;
@@ -45,14 +49,14 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  int            $id
      * @param  RoleUpdateDTO  $roleUpdateDTO
      *
      * @return Role
      */
-    public function updateRole(int $id, RoleUpdateDTO $roleUpdateDTO): Role
+    public function updateRole(RoleUpdateDTO $roleUpdateDTO): Role
     {
-        $role = Role::findById($id);
+        $role = Role::findById($roleUpdateDTO->id);
+
         $role->forgetSharedCache();
 
         if (!$role->deletable) {
@@ -103,7 +107,7 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
     }
 
     /**
-     * @param  array  $params
+     * @param  PermissonCreateDTO  $permissionCreateDTO
      *
      * @return Permission
      */
@@ -124,9 +128,9 @@ class RoleAndPermissionRepositoryImp implements RoleAndPermissionRepository
      *
      * @return Permission
      */
-    public function updatePermission(int $id, PermissionUpdateDTO $permissionUpdateDTO): Permission
+    public function updatePermission(PermissionUpdateDTO $permissionUpdateDTO): Permission
     {
-        $permission = Permission::findById($id);
+        $permission = Permission::findById($permissionUpdateDTO->id);
 
         if (!$permission->deletable) {
             if (isset($permissionUpdateDTO->description)) {
