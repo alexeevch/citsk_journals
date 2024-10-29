@@ -7,7 +7,7 @@ use App\DTO\Incident\IncidentUpdateDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Incident\IncidentCollection;
 use App\Http\Resources\Incident\IncidentResource;
-use App\Service\IncidentService;
+use App\Service\IncidentServiceImp;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -17,7 +17,7 @@ use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
 class IncidentController extends Controller
 {
-    public function __construct(private readonly IncidentService $incidentService)
+    public function __construct(private readonly IncidentServiceImp $incidentService)
     {
     }
 
