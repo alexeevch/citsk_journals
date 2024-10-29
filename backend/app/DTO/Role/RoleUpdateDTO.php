@@ -10,6 +10,7 @@ class RoleUpdateDTO extends ValidatedDTO
     public ?string $name = null;
     public ?string $description = null;
     public ?bool $deletable = false;
+    public ?array $permissions = [];
 
     protected function rules(): array
     {
@@ -18,6 +19,7 @@ class RoleUpdateDTO extends ValidatedDTO
             'name'        => ['string'],
             'description' => ['string'],
             'deletable'   => ['boolean'],
+            'permissions' => ['array'],
         ];
     }
 
