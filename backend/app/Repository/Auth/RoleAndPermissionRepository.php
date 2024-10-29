@@ -26,12 +26,11 @@ interface RoleAndPermissionRepository
     public function createRole(RoleCreateDTO $roleCreateDTO): Role;
 
     /**
-     * @param  int            $id
      * @param  RoleUpdateDTO  $roleUpdateDTO
      *
      * @return Role
      */
-    public function updateRole(int $id, RoleUpdateDTO $roleUpdateDTO): Role;
+    public function updateRole(RoleUpdateDTO $roleUpdateDTO): Role;
 
     /**
      * @param  int  $id
@@ -53,12 +52,11 @@ interface RoleAndPermissionRepository
     public function createPermission(PermissonCreateDTO $permissionCreateDTO): Permission;
 
     /**
-     * @param  int                  $id
      * @param  PermissionUpdateDTO  $permissionUpdateDTO
      *
      * @return Permission
      */
-    public function updatePermission(int $id, PermissionUpdateDTO $permissionUpdateDTO): Permission;
+    public function updatePermission(PermissionUpdateDTO $permissionUpdateDTO): Permission;
 
     /**
      * @param  int  $id
