@@ -2,6 +2,10 @@
 
 namespace App\Repository\Auth;
 
+use App\DTO\Role\PermissionUpdateDTO;
+use App\DTO\Role\PermissonCreateDTO;
+use App\DTO\Role\RoleCreateDTO;
+use App\DTO\Role\RoleUpdateDTO;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,19 +19,19 @@ interface RoleAndPermissionRepository
     public function getAllRoles(): Collection;
 
     /**
-     * @param  array  $params
+     * @param  RoleCreateDTO  $roleCreateDTO
      *
      * @return Role
      */
-    public function createRole(array $params): Role;
+    public function createRole(RoleCreateDTO $roleCreateDTO): Role;
 
     /**
-     * @param  int    $id
-     * @param  array  $params
+     * @param  int            $id
+     * @param  RoleUpdateDTO  $roleUpdateDTO
      *
      * @return Role
      */
-    public function updateRole(int $id, array $params): Role;
+    public function updateRole(int $id, RoleUpdateDTO $roleUpdateDTO): Role;
 
     /**
      * @param  int  $id
@@ -42,19 +46,19 @@ interface RoleAndPermissionRepository
     public function getAllPermissions(): Collection;
 
     /**
-     * @param  array  $params
+     * @param  PermissonCreateDTO  $permissionCreateDTO
      *
      * @return Permission
      */
-    public function createPermission(array $params): Permission;
+    public function createPermission(PermissonCreateDTO $permissionCreateDTO): Permission;
 
     /**
-     * @param  int    $id
-     * @param  array  $params
+     * @param  int                  $id
+     * @param  PermissionUpdateDTO  $permissionUpdateDTO
      *
      * @return Permission
      */
-    public function updatePermission(int $id, array $params): Permission;
+    public function updatePermission(int $id, PermissionUpdateDTO $permissionUpdateDTO): Permission;
 
     /**
      * @param  int  $id
