@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\DTO\Permission\PermissionCreateDTO;
-use App\DTO\Role\PermissionUpdateDTO;
+use App\DTO\Permission\PermissionUpdateDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Auth\PermissionCollection;
 use App\Http\Resources\Auth\PermissionResource;
