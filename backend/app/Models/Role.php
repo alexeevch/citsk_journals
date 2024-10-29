@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use App\Traits\HasCache;
+use Spatie\Permission\Models\Role as BaseRole;
 
 /**
  * @property int     $id
@@ -12,7 +13,7 @@ use App\Traits\HasCache;
  * @property array   $permissions
  * @property boolean $deletable
  */
-class Role extends \Spatie\Permission\Models\Role
+class Role extends BaseRole
 {
     use HasCache;
 
