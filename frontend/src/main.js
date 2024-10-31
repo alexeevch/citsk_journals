@@ -1,6 +1,10 @@
 import 'element-plus/dist/index.css';
 import 'element-plus/theme-chalk/dark/css-vars.css';
+import '@/assets/styles/utils.css';
 import '@/assets/styles/global.css';
+
+
+import '@/api/axios.js';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
