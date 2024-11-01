@@ -33,6 +33,16 @@ class AuthService {
     }
   }
 
+  async getMe() {
+    try {
+      const { data } = await axios.get('/auth/me');
+
+      return data.data;
+    } catch (e) {
+      await Promise.reject(e);
+    }
+  }
+
   async refreshTokenAsync(refresh_token) {
     try {
       const { data } = await axios.post('/auth/refresh', { refresh_token }).data;
