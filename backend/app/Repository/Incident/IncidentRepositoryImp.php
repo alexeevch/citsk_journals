@@ -36,7 +36,7 @@ class IncidentRepositoryImp implements IncidentRepository
     /**
      * @param  IncidentUpdateDTO  $incidentUpdateDTO
      * @param  Attacker           $attacker
-     * @param  Infrastructure     $infrastructure  *
+     * @param  Infrastructure     $infrastructure
      *
      * @inheritDoc
      */
