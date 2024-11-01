@@ -2,77 +2,91 @@
 
 namespace App\Repository\User;
 
+use App\Constants;
 use App\DTO\Auth\UserCreateDTO;
 use App\DTO\Auth\UserUpdateDTO;
-use App\Http\Resources\User\UserCollection;
-use App\Http\Resources\User\UserResource;
-use App\Service\UserService;
-use App\Service\UserServiceImp;
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserRepositoryImp implements UserRepository
 {
-    private UserService $userService;
-
-    public function __construct()
+    /**
+     * @param  array|null  $filter  *
+     *
+     * @inheritDoc
+     */
+    public function findAllUsers(?array $filter = null): Collection
     {
-        $this->userService = new UserServiceImp();
+        return User::all();
     }
 
     /**
      * @inheritDoc
      */
-    public function findAll(?array $filter = null): UserCollection
+    public function findUserById(int $id): User
     {
-        return $this->userService->getAllUsers();
+        return User::findOrFail($id);
     }
 
     /**
      * @inheritDoc
      */
-    public function findById(int $id): UserResource
+    public function createUser(UserCreateDTO $userCreateDTO): User
     {
-        return $this->userService->getUserById($id);
+        $user = new User();
+        $user->email = $userCreateDTO->email;
+        $user->login = $userCreateDTO->login;
+        $user->password = $userCreateDTO->password;
+        $user->first_name = $userCreateDTO->first_name;
+        $user->last_name = $userCreateDTO->last_name;
+        $user->patronymic = $userCreateDTO->patronymic;
+        $user->post = $userCreateDTO->post;
+        $user->phone = $userCreateDTO->phone;
+        $user->save();
+
+        return $user;
     }
 
     /**
      * @inheritDoc
      */
-    public function create(UserCreateDTO $userCreateDTO): UserResource
+    public function updateUser(UserUpdateDTO $userUpdateDTO): User
     {
-        return $this->userService->createUser($userCreateDTO);
+        $user = User::findOrFail($userUpdateDTO->id);
+        $user->update($userUpdateDTO);
+        $user->save();
+
+        return $user;
     }
 
     /**
      * @inheritDoc
      */
-    public function update(UserUpdateDTO $userUpdateDTO): UserResource
+    public function deleteUser(int $id): bool
     {
-        return $this->userService->updateUser($userUpdateDTO);
+        return (bool) User::findOrFail($id)->delete();
     }
 
     /**
      * @inheritDoc
      */
-    public function delete(int $id): int
+    public function assignRoles(int $userId, array $roles): User
     {
-        return $this->userService->deleteUser($id);
+        User::forgetSharedCache();
+
+        return User::findOrFail($userId)->syncRoles($roles);
     }
 
     /**
      * @inheritDoc
      */
-    public function assignRoles(int $userId, array $roles): UserResource
+    public function assignPermissions(int $userId, array $permissions): User
     {
-        return $this->userService->assignRoles($userId, $roles);
-    }
+        User::forgetSharedCache();
 
-    /**
-     * @inheritDoc
-     */
-    public function assignPermissions(int $userId, array $permissions): UserResource
-    {
-        return $this->userService->assignPermissions($userId, $permissions);
+        return User::findOrFail($userId)->syncPermissions($permissions);
     }
 
     /**
@@ -80,7 +94,8 @@ class UserRepositoryImp implements UserRepository
      */
     public function getRoles(): Collection
     {
-        return $this->userService->getRoles();
+        return Role::handleSharedCache(fn() => Role::select(['id', 'name', 'description'])->where('name', '!=',
+            Constants::ROOT_ROLE)->get());
     }
 
     /**
@@ -88,6 +103,6 @@ class UserRepositoryImp implements UserRepository
      */
     public function getPermissions(): Collection
     {
-        return $this->userService->getPermissions();
+        return Permission::handleSharedCache(fn() => Permission::select(['id', 'name', 'description'])->get());
     }
 }
