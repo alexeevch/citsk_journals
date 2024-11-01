@@ -2,25 +2,22 @@
 
 namespace App\Service;
 
-use App\Constants;
 use App\DTO\Auth\UserCreateDTO;
 use App\DTO\Auth\UserUpdateDTO;
+use App\Http\Resources\Auth\PermissionCollection;
+use App\Http\Resources\Auth\RoleCollection;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
-use App\Models\Permission;
-use App\Models\Role;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use App\Repository\User\UserRepository;
+use App\Repository\User\UserRepositoryImp;
 
 class UserServiceImp implements UserService
 {
+    private readonly UserRepository $userRepository;
 
-    /**
-     * @inheritDoc
-     */
-    public function getUserById(int $id): UserResource
+    public function __construct()
     {
-        return new UserResource(User::findOrFail($id));
+        $this->userRepository = new UserRepositoryImp();
     }
 
     /**
@@ -28,7 +25,15 @@ class UserServiceImp implements UserService
      */
     public function getAllUsers(): UserCollection
     {
-        return new UserCollection(User::all());
+        return new UserCollection($this->userRepository->findAllUsers());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserById(int $id): UserResource
+    {
+        return new UserResource($this->userRepository->findUserById($id));
     }
 
     /**
@@ -36,18 +41,7 @@ class UserServiceImp implements UserService
      */
     public function createUser(UserCreateDTO $userCreateDTO): UserResource
     {
-        $user = new User();
-        $user->email = $userCreateDTO->email;
-        $user->login = $userCreateDTO->login;
-        $user->password = $userCreateDTO->password;
-        $user->first_name = $userCreateDTO->first_name;
-        $user->last_name = $userCreateDTO->last_name;
-        $user->patronymic = $userCreateDTO->patronymic;
-        $user->post = $userCreateDTO->post;
-        $user->phone = $userCreateDTO->phone;
-        $user->save();
-
-        return new UserResource($user);
+        return new UserResource($this->userRepository->createUser($userCreateDTO));
     }
 
     /**
@@ -55,11 +49,7 @@ class UserServiceImp implements UserService
      */
     public function updateUser(UserUpdateDTO $userUpdateDTO): UserResource
     {
-        $user = User::findOrFail($userUpdateDTO->id);
-        $user->update($userUpdateDTO);
-        $user->save();
-
-        return new UserResource($user);
+        return new UserResource($this->userRepository->updateUser($userUpdateDTO));
     }
 
     /**
@@ -67,7 +57,7 @@ class UserServiceImp implements UserService
      */
     public function deleteUser(int $id): bool
     {
-        return (bool) User::findOrFail($id)->delete();
+        return $this->userRepository->deleteUser($id);
     }
 
     /**
@@ -75,9 +65,7 @@ class UserServiceImp implements UserService
      */
     public function assignRoles(int $userId, array $roles): UserResource
     {
-        User::forgetSharedCache();
-
-        return new UserResource(User::findOrFail($userId)->syncRoles($roles));
+        return new UserResource($this->userRepository->assignRoles($userId, $roles));
     }
 
     /**
@@ -85,25 +73,22 @@ class UserServiceImp implements UserService
      */
     public function assignPermissions(int $userId, array $permissions): UserResource
     {
-        User::forgetSharedCache();
-
-        return new UserResource(User::findOrFail($userId)->syncPermissions($permissions));
+        return new UserResource($this->userRepository->assignPermissions($userId, $permissions));
     }
 
     /**
      * @inheritDoc
      */
-    public function getRoles(): Collection
+    public function getRoles(): RoleCollection
     {
-        return Role::handleSharedCache(fn() => Role::select(['id', 'name', 'description'])->where('name', '!=',
-            Constants::ROOT_ROLE)->get());
+        return new RoleCollection($this->userRepository->getRoles());
     }
 
     /**
      * @inheritDoc
      */
-    public function getPermissions(): Collection
+    public function getPermissions(): PermissionCollection
     {
-        return Permission::handleSharedCache(fn() => Permission::select(['id', 'name', 'description'])->get());
+        return new PermissionCollection($this->userRepository->getPermissions());
     }
 }
