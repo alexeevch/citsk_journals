@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasCache;
 use DateTimeInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -23,7 +24,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class User extends Authenticatable implements JWTSubject
 {
-    use HasRoles;
+    use HasRoles, HasCache;
 
     protected $guarded = [
         'password',
