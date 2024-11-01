@@ -6,7 +6,7 @@ use App\DTO\Infrastructure\InfrastructureCreateDTO;
 use App\DTO\Infrastructure\InfrastructureUpdateDTO;
 use App\Models\Infrastructure;
 
-interface InfrastructureRepositoryInterface
+interface InfrastructureRepository
 {
     /**
      * @param  InfrastructureCreateDTO  $infrastructureCreateDTO
