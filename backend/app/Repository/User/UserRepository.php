@@ -4,8 +4,8 @@ namespace App\Repository\User;
 
 use App\DTO\Auth\UserCreateDTO;
 use App\DTO\Auth\UserUpdateDTO;
-use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepository
@@ -13,53 +13,53 @@ interface UserRepository
     /**
      * @param  array|null  $filter
      *
-     * @return UserCollection
+     * @return Collection
      */
-    public function findAll(?array $filter = null): UserCollection;
+    public function findAllUsers(?array $filter = null): Collection;
 
     /**
      * @param  int  $id
      *
-     * @return UserResource
+     * @return User
      */
-    public function findById(int $id): UserResource;
+    public function findUserById(int $id): User;
 
     /**
      * @param  UserCreateDTO  $userCreateDTO
      *
-     * @return UserResource
+     * @return User
      */
-    public function create(UserCreateDTO $userCreateDTO): UserResource;
+    public function createUser(UserCreateDTO $userCreateDTO): User;
 
     /**
      * @param  UserUpdateDTO  $userUpdateDTO
      *
-     * @return UserResource
+     * @return User
      */
-    public function update(UserUpdateDTO $userUpdateDTO): UserResource;
+    public function updateUser(UserUpdateDTO $userUpdateDTO): User;
 
     /**
      * @param  mixed  $id
      *
-     * @return int
+     * @return bool
      */
-    public function delete(int $id): int;
+    public function deleteUser(int $id): bool;
 
     /**
      * @param  int    $userId
      * @param  array  $roles
      *
-     * @return UserResource
+     * @return User
      */
-    public function assignRoles(int $userId, array $roles): UserResource;
+    public function assignRoles(int $userId, array $roles): User;
 
     /**
      * @param  int    $userId
      * @param  array  $permissions
      *
-     * @return UserResource
+     * @return User
      */
-    public function assignPermissions(int $userId, array $permissions): UserResource;
+    public function assignPermissions(int $userId, array $permissions): User;
 
     /**
      * @return Collection
