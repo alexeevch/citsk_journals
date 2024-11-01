@@ -11,11 +11,20 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
+use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
 class AuthController extends Controller
 {
     use Response;
 
+    /**
+     * @param  Request  $request
+     *
+     * @return JsonResponse
+     * @throws CastTargetException
+     * @throws MissingCastTypeException
+     */
     public function register(Request $request): JsonResponse
     {
         try {
@@ -39,6 +48,11 @@ class AuthController extends Controller
         return $this->jsonSuccess($user, 201);
     }
 
+    /**
+     * @param  Request  $request
+     *
+     * @return JsonResponse
+     */
     public function login(Request $request): JsonResponse
     {
         try {
@@ -62,7 +76,25 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the token array structure.
+     * @return JsonResponse
+     */
+    public function refresh(): JsonResponse
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
+     *
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        auth()->logout();
+
+        return $this->jsonSuccess();
+    }
+
+    /**
      *
      * @param  string  $token
      *
