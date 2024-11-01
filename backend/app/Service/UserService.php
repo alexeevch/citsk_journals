@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\DTO\Auth\UserCreateDTO;
 use App\DTO\Auth\UserUpdateDTO;
+use App\Http\Resources\Auth\PermissionCollection;
+use App\Http\Resources\Auth\RoleCollection;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Database\Eloquent\Collection;
@@ -60,12 +62,12 @@ interface UserService
     public function assignPermissions(int $userId, array $permissions): UserResource;
 
     /**
-     * @return Collection
+     * @return RoleCollection
      */
-    public function getRoles(): Collection;
+    public function getRoles(): RoleCollection;
 
     /**
-     * @return Collection
+     * @return PermissionCollection
      */
-    public function getPermissions(): Collection;
+    public function getPermissions(): PermissionCollection;
 }
