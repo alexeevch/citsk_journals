@@ -15,19 +15,23 @@ class UserUpdateDTO extends ValidatedDTO
     public ?string $last_name = null;
     public ?string $patronymic = null;
     public ?string $phone = null;
+    public ?array $roles = [];
+    public ?array $permissions = [];
 
     protected function rules(): array
     {
         return [
-            'id'         => ['required', 'integer'],
-            'email'      => ['email'],
-            'login'      => ['string'],
-            'first_name' => ['string'],
-            'last_name'  => ['string'],
-            'patronymic' => ['string'],
-            'post'       => ['string'],
-            'phone'      => ['string'],
-            'password'   => [
+            'id'          => ['required', 'integer'],
+            'email'       => ['email'],
+            'login'       => ['string'],
+            'first_name'  => ['string'],
+            'last_name'   => ['string'],
+            'patronymic'  => ['string'],
+            'post'        => ['string'],
+            'phone'       => ['string'],
+            'roles'       => ['array'],
+            'permissions' => ['array'],
+            'password'    => [
                 Password::min(8)
                         ->mixedCase()
                         ->letters()
