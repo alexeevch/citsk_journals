@@ -100,7 +100,7 @@ class CustomExceptionHandler extends ExceptionHandler
             return self::jsonError($e->getCode(), $e->getMessage(), SymfonyResponse::HTTP_BAD_REQUEST);
         }
 
-        if ($e instanceof Exception) {
+        if ($e instanceof Throwable) {
             return self::jsonError(7777, env('APP_DEBUG') ? $e->getMessage() : "An error occurred", 500);
         }
 
