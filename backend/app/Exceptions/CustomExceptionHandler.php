@@ -4,14 +4,18 @@ namespace App\Exceptions;
 
 use App\Constants;
 use App\Traits\Response as TraitResponse;
+use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use PDOException;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
+use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
 class CustomExceptionHandler extends ExceptionHandler
 {
@@ -57,10 +61,11 @@ class CustomExceptionHandler extends ExceptionHandler
     }
 
     /**
-     * @param mixed $request
-     * @param Throwable $e
+     * @param  mixed      $request
+     * @param  Throwable  $e
      *
      * @return mixed
+     * @throws Throwable
      */
     public function render($request, Throwable $e): mixed
     {
@@ -80,14 +85,23 @@ class CustomExceptionHandler extends ExceptionHandler
             $message = $e->getMessage();
 
             if (is_numeric(stripos($message, "Duplicate"))) {
-                return self::jsonError(1062,
-                    env('APP_DEBUG') ? $e->getMessage() : preg_replace("/1062(?s)(.*) \(SQL/", "", $e->getMessage()));
+                return self::jsonError($e->getCode(),
+                    env('APP_DEBUG') ? $e->getMessage() : "Duplicate entry", SymfonyResponse::HTTP_CONFLICT);
             }
 
             if (is_numeric(stripos($message, "Integrity constraint violation"))) {
-                return self::jsonError(1451,
-                    env('APP_DEBUG') ? $e->getMessage() : preg_replace("/1451(?s)(.*) \(SQL/", "", $e->getMessage()));
+                return self::jsonError($e->getCode(),
+                    env('APP_DEBUG') ? $e->getMessage() : "Integrity constraint violation",
+                    SymfonyResponse::HTTP_BAD_REQUEST);
             }
+        }
+
+        if ($e instanceof ValidationException || $e instanceof MissingCastTypeException) {
+            return self::jsonError($e->getCode(), $e->getMessage(), SymfonyResponse::HTTP_BAD_REQUEST);
+        }
+
+        if ($e instanceof Exception) {
+            return self::jsonError(7777, env('APP_DEBUG') ? $e->getMessage() : "An error occurred", 500);
         }
 
         return parent::render($request, $e);
