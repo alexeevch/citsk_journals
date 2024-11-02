@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Constants;
 use App\DTO\Auth\UserCreateDTO;
 use App\DTO\Auth\UserUpdateDTO;
 use App\Http\Resources\Auth\PermissionCollection;
@@ -41,7 +42,10 @@ class UserServiceImp implements UserService
      */
     public function createUser(UserCreateDTO $userCreateDTO): UserResource
     {
-        return new UserResource($this->userRepository->createUser($userCreateDTO));
+        $user = $this->userRepository->createUser($userCreateDTO);
+        $user->assignRole(Constants::OBSERVER_ROLE);
+
+        return new UserResource($user);
     }
 
     /**
