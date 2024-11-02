@@ -16,20 +16,24 @@ class UserCreateDTO extends ValidatedDTO
     public string $post;
     public string $phone;
     public ?bool $is_blocked;
+    public ?array $roles;
+    public ?array $permissions;
 
 
     protected function rules(): array
     {
         return [
-            'email'      => ['required', 'email'],
-            'login'      => ['required', 'string'],
-            'first_name' => ['required', 'string'],
-            'last_name'  => ['required', 'string'],
-            'patronymic' => ['string'],
-            'post'       => ['required', 'string'],
-            'phone'      => ['required', 'string'],
-            'is_blocked' => ['boolean'],
-            'password'   => [
+            'email'       => ['required', 'email'],
+            'login'       => ['required', 'string'],
+            'first_name'  => ['required', 'string'],
+            'last_name'   => ['required', 'string'],
+            'patronymic'  => ['string'],
+            'post'        => ['required', 'string'],
+            'phone'       => ['required', 'string'],
+            'roles'       => ['array'],
+            'permissions' => ['array'],
+            'is_blocked'  => ['boolean'],
+            'password'    => [
                 'required', Password::min(8)
                                     ->mixedCase()
                                     ->letters()
