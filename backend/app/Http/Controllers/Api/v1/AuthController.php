@@ -24,14 +24,11 @@ class AuthController extends Controller
      * @return JsonResponse
      * @throws CastTargetException
      * @throws MissingCastTypeException
+     * @throws ValidationException
      */
     public function register(Request $request): JsonResponse
     {
-        try {
-            $data = UserCreateDTO::fromRequest($request);
-        } catch (ValidationException $e) {
-            return $this->jsonError(0, $e->getMessage(), 400);
-        }
+        $data = UserCreateDTO::fromRequest($request);
 
         $user = new User;
         $user->email = $data->email;
@@ -55,14 +52,10 @@ class AuthController extends Controller
      */
     public function login(Request $request): JsonResponse
     {
-        try {
-            $request->validate([
-                'login'    => 'required|string',
-                'password' => 'required|string'
-            ]);
-        } catch (ValidationException $e) {
-            return $this->jsonError(0, $e->getMessage(), SymfonyResponse::HTTP_BAD_REQUEST);
-        }
+        $request->validate([
+            'login'    => 'required|string',
+            'password' => 'required|string'
+        ]);
 
         if (!$token = auth()->attempt([
             "login"      => $request->get('login'),
