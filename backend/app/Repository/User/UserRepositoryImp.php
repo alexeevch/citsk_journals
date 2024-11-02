@@ -8,6 +8,7 @@ use App\DTO\Auth\UserUpdateDTO;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use Hash;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserRepositoryImp implements UserRepository
@@ -38,10 +39,10 @@ class UserRepositoryImp implements UserRepository
         $user = new User();
         $user->email = $userCreateDTO->email;
         $user->login = $userCreateDTO->login;
-        $user->password = $userCreateDTO->password;
+        $user->password = Hash::make($userCreateDTO->password);
         $user->first_name = $userCreateDTO->first_name;
         $user->last_name = $userCreateDTO->last_name;
-        $user->patronymic = $userCreateDTO->patronymic;
+        $user->patronymic = $userCreateDTO->patronymic ?? null;
         $user->post = $userCreateDTO->post;
         $user->phone = $userCreateDTO->phone;
         $user->save();
