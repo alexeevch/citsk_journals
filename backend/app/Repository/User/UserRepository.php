@@ -4,7 +4,6 @@ namespace App\Repository\User;
 
 use App\DTO\Auth\UserCreateDTO;
 use App\DTO\Auth\UserUpdateDTO;
-use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
