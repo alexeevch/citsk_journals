@@ -42,7 +42,7 @@ class AuthController extends Controller
         $user->post = $data->post;
         $user->save();
 
-        return $this->jsonSuccess($user, 201);
+        return $this->jsonSuccess($user, SymfonyResponse::HTTP_CREATED);
     }
 
     /**
