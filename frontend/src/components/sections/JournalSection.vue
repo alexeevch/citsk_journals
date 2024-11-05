@@ -1,26 +1,21 @@
 <script setup>
-import PageHeading from '@/components/PageHeading.vue';
-
-import axios from 'axios';
+import PageHeading from '@/components/widgets/PageHeading.vue';
 import { onMounted, ref } from 'vue';
+import { IncidentSerivce } from '@/api/services/IncidentSerivce.js';
 
 let isLoading = ref(false);
 let incidents = ref([]);
 
-async function getIncidents() {
+
+onMounted(async () => {
   try {
     isLoading.value = true;
-    const { data } = await axios.get('/incident');
-    return data.data;
+    incidents.value = await IncidentSerivce.getAll();
   } catch (e) {
     console.error(e);
   } finally {
     isLoading.value = false;
   }
-}
-
-onMounted(async () => {
-  incidents.value = await getIncidents();
 });
 
 </script>
