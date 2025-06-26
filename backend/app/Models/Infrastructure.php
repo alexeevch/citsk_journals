@@ -5,29 +5,27 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int    $id
  * @property string $ipv4
  * @property string $name
- * @property string $owner
+ * @property int    $owner_id
  * @mixin Eloquent
  */
 class Infrastructure extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         "ipv4",
         "name",
-        "owner",
+        "owner_id",
     ];
 
-    public function incident(): HasOne
+    public function incident(): HasMany
     {
-        return $this->hasOne(Incident::class, "attacked_id");
+        return $this->hasMany(Incident::class, "infrastructure_id");
     }
 }
