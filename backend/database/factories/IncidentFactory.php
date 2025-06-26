@@ -24,18 +24,18 @@ class IncidentFactory extends Factory
     public function definition(): array
     {
         return [
-            'attacker_id'           => function () {
+            'attacker_id'            => function () {
                 return Attacker::factory()->create()->id;
             },
-            'infrastructure_id'     => function () {
+            'infrastructure_id'      => function () {
                 return Infrastructure::factory()->create()->id;
             },
-            'type_id'               => IncidentType::pluck("id")->random(),
-            'status_id'             => IncidentStatus::pluck("id")->random(),
-            'description'           => $this->faker->text(255),
-            "detection_datetime"        => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
-            "group_alert_datetime"      => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
-            "supervisor_alert_datetime" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            'type_id'                => IncidentType::pluck("id")->random(),
+            'status_id'              => IncidentStatus::pluck("id")->random(),
+            'description'            => $this->faker->text(255),
+            "detection_at"           => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            "group_notified_at"      => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            "supervisor_notified_at" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
         ];
     }
 }
