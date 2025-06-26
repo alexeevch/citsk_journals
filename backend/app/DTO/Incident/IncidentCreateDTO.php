@@ -28,9 +28,9 @@ class IncidentCreateDTO extends ValidatedDTO
             'type'                  => ['required', 'array'],
             'status'                => ['required', 'array'],
             'description'           => ['string'],
-            'detection_time'        => ['required', 'date'],
-            'group_alert_time'      => ['required', 'date'],
-            'supervisor_alert_time' => ['required', 'date'],
+            'detection_datetime'        => ['required', 'date'],
+            'group_alert_datetime'      => ['required', 'date'],
+            'supervisor_alert_datetime' => ['required', 'date'],
         ];
     }
 
@@ -39,9 +39,9 @@ class IncidentCreateDTO extends ValidatedDTO
         return [
             'attacker'              => new DTOCast(AttackerCreateDTO::class),
             'infrastructure'        => new DTOCast(InfrastructureCreateDTO::class),
-            'detection_time'        => new CarbonCast(),
-            'group_alert_time'      => new CarbonCast(),
-            'supervisor_alert_time' => new CarbonCast(),
+            'detection_datetime'        => new CarbonCast(),
+            'group_alert_datetime'      => new CarbonCast(),
+            'supervisor_alert_datetime' => new CarbonCast(),
         ];
     }
 

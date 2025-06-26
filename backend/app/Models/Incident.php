@@ -7,7 +7,6 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int            $id
@@ -31,9 +30,9 @@ class Incident extends Model
         "type",
         "status",
         "description",
-        "detection_time",
-        "group_alert_time",
-        "supervisor_alert_time",
+        "detection_datetime",
+        "group_alert_datetime",
+        "supervisor_alert_datetime",
     ];
 
     public function attacker(): BelongsTo

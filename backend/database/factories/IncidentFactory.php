@@ -33,9 +33,9 @@ class IncidentFactory extends Factory
             'type_id'               => IncidentType::pluck("id")->random(),
             'status_id'             => IncidentStatus::pluck("id")->random(),
             'description'           => $this->faker->text(255),
-            "detection_time"        => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
-            "group_alert_time"      => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
-            "supervisor_alert_time" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            "detection_datetime"        => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            "group_alert_datetime"      => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            "supervisor_alert_datetime" => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
         ];
     }
 }

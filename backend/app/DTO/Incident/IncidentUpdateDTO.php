@@ -19,9 +19,9 @@ class IncidentUpdateDTO extends ValidatedDTO
     public ?array $type = null;
     public ?array $status = null;
     public ?string $description = null;
-    public ?DateTime $detection_time = null;
-    public ?DateTime $group_alert_time = null;
-    public ?DateTime $supervisor_alert_time = null;
+    public ?DateTime $detection_datetime = null;
+    public ?DateTime $group_alert_datetime = null;
+    public ?DateTime $supervisor_alert_datetime = null;
 
     protected function rules(): array
     {
@@ -32,9 +32,9 @@ class IncidentUpdateDTO extends ValidatedDTO
             'type'                  => ['array'],
             'status'                => ['array'],
             'description'           => ['string'],
-            'detection_time'        => ['date'],
-            'group_alert_time'      => ['date'],
-            'supervisor_alert_time' => ['date'],
+            'detection_datetime'        => ['date'],
+            'group_alert_datetime'      => ['date'],
+            'supervisor_alert_datetime' => ['date'],
         ];
     }
 
@@ -45,9 +45,9 @@ class IncidentUpdateDTO extends ValidatedDTO
             'infrastructure'        => new DTOCast(InfrastructureUpdateDTO::class),
             'type'                  => new DTOCast(IncidentTypeUpdateDTO::class),
             'status'                => new DTOCast(IncidentStatusUpdateDTO::class),
-            'detection_time'        => new CarbonCast(),
-            'group_alert_time'      => new CarbonCast(),
-            'supervisor_alert_time' => new CarbonCast(),
+            'detection_datetime'        => new CarbonCast(),
+            'group_alert_datetime'      => new CarbonCast(),
+            'supervisor_alert_datetime' => new CarbonCast(),
         ];
     }
 
