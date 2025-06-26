@@ -14,37 +14,35 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class IncidentUpdateDTO extends ValidatedDTO
 {
     public int $id;
-    public ?AttackerUpdateDTO $attacker = null;
-    public ?InfrastructureUpdateDTO $infrastructure = null;
-    public ?array $type = null;
-    public ?array $status = null;
+    public ?int $attacker_id = null;
+    public ?int $infrastructure_id = null;
+    public ?int $type_id = null;
+    public ?int $status_id = null;
     public ?string $description = null;
-    public ?DateTime $detection_datetime = null;
-    public ?DateTime $group_alert_datetime = null;
-    public ?DateTime $supervisor_alert_datetime = null;
+    public ?int $created_by = null;
+    public ?DateTime $detection_at = null;
+    public ?DateTime $group_notified_at = null;
+    public ?DateTime $supervisor_notified_at = null;
 
     protected function rules(): array
     {
         return [
-            'id'                    => ['required', 'integer'],
-            'attacker'              => ['array'],
-            'infrastructure'        => ['array'],
-            'type'                  => ['array'],
-            'status'                => ['array'],
-            'description'           => ['string'],
-            'detection_datetime'        => ['date'],
-            'group_alert_datetime'      => ['date'],
-            'supervisor_alert_datetime' => ['date'],
+            'id'                     => ['required', 'integer'],
+            'attacker_id'            => ['integer', 'exists:attackers,id'],
+            'infrastructure_id'      => ['integer', 'exists:infrastructures,id'],
+            'type_id'                => ['integer', 'exists:incident_types,id'],
+            'status_id'              => ['integer', 'exists:incident_statuses,id'],
+            'description'            => ['string'],
+            'detection_at'           => ['date'],
+            'group_notified_at'      => ['date'],
+            'supervisor_notified_at' => ['date'],
+            'created_by'             => ['integer', 'exists:users,id'],
         ];
     }
 
     protected function casts(): array
     {
         return [
-            'attacker'              => new DTOCast(AttackerUpdateDTO::class),
-            'infrastructure'        => new DTOCast(InfrastructureUpdateDTO::class),
-            'type'                  => new DTOCast(IncidentTypeUpdateDTO::class),
-            'status'                => new DTOCast(IncidentStatusUpdateDTO::class),
             'detection_datetime'        => new CarbonCast(),
             'group_alert_datetime'      => new CarbonCast(),
             'supervisor_alert_datetime' => new CarbonCast(),
