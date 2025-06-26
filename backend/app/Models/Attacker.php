@@ -19,9 +19,6 @@ class Attacker extends Model
 {
     use HasFactory;
 
-//TODO: Make created_at timestamp
-    public $timestamps = false;
-
     protected $fillable = [
         "ipv4",
         "description",
