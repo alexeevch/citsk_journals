@@ -8,14 +8,14 @@ class AttackerCreateDTO extends ValidatedDTO
 {
     public string $ipv4;
     public ?string $description;
-    public string $country;
+    public ?array $country;
 
     protected function rules(): array
     {
         return [
             'ipv4'        => ['required', 'ipv4'],
-            'description' => ['string'],
-            'country'     => ['required', 'string'],
+            'country_id'  => ['required', 'integer', 'exists:countries, id'],
+            'description' => ['nullable', 'string'],
         ];
     }
 
