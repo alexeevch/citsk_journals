@@ -17,9 +17,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('type_id');
             $table->unsignedBigInteger("status_id");
             $table->string("description", 255)->nullable();
-            $table->timestamp("detection_time")->nullable();
-            $table->timestamp("group_alert_time")->nullable();
-            $table->timestamp("supervisor_alert_time")->nullable();
+            $table->timestamp("detection_datetime")->nullable();
+            $table->timestamp("group_alert_datetime")->nullable();
+            $table->timestamp("supervisor_alert_datetime")->nullable();
             $table->timestamps();
 
 
