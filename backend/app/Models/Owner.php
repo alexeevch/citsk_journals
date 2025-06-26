@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -16,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Owner extends Model
 {
     use SoftDeletes;
+    use HasFactory;
 
     protected $table = 'owners';
 
@@ -25,7 +28,12 @@ class Owner extends Model
         'contact_phone',
     ];
 
-    protected $dates = [
+    protected array $dates = [
         'deleted_at',
     ];
+
+    public function infrastructure(): HasMany
+    {
+        return $this->hasMany(Infrastructure::class, "owner_id");
+    }
 }
