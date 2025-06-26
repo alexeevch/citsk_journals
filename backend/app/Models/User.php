@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\HasCache;
-use DateTimeInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -11,7 +10,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  * @property int    $id
  * @property bool   $is_blocked
- * @property string $login
  * @property string $password
  * @property string $first_name
  * @property string $last_name
@@ -28,12 +26,10 @@ class User extends Authenticatable implements JWTSubject
 
     protected $guarded = [
         'password',
-        'login',
         'is_blocked',
     ];
 
     protected $hidden = [
-        'login',
         'password',
         'updated_at',
     ];
@@ -43,6 +39,11 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $appends = ['full_name'];
+
+    public function username(): string
+    {
+        return 'email';
+    }
 
     /**
      * @return string

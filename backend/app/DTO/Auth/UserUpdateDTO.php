@@ -23,7 +23,6 @@ class UserUpdateDTO extends ValidatedDTO
         return [
             'id'          => ['required', 'integer'],
             'email'       => ['email'],
-            'login'       => ['string'],
             'first_name'  => ['string'],
             'last_name'   => ['string'],
             'patronymic'  => ['string'],

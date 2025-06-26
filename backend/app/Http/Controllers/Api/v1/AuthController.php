@@ -32,7 +32,6 @@ class AuthController extends Controller
 
         $user = new User;
         $user->email = $data->email;
-        $user->login = $data->login;
         $user->password = Hash::make($data->password);
         $user->first_name = $data->first_name;
         $user->last_name = $data->last_name;
@@ -53,12 +52,12 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         $request->validate([
-            'login'    => 'required|string',
+            'email'    => 'required|string',
             'password' => 'required|string'
         ]);
 
         if (!$token = auth()->attempt([
-            "login"      => $request->get('login'),
+            "email"      => $request->get('email'),
             "password"   => $request->get('password'),
             "is_blocked" => false
         ])) {

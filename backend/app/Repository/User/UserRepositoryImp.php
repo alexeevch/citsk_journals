@@ -38,7 +38,6 @@ class UserRepositoryImp implements UserRepository
     {
         $user = new User();
         $user->email = $userCreateDTO->email;
-        $user->login = $userCreateDTO->login;
         $user->password = Hash::make($userCreateDTO->password);
         $user->first_name = $userCreateDTO->first_name;
         $user->last_name = $userCreateDTO->last_name;

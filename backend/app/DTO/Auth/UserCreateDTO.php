@@ -8,7 +8,6 @@ use WendellAdriel\ValidatedDTO\ValidatedDTO;
 class UserCreateDTO extends ValidatedDTO
 {
     public string $email;
-    public string $login;
     public string $password;
     public string $first_name;
     public string $last_name;
@@ -24,12 +23,11 @@ class UserCreateDTO extends ValidatedDTO
     {
         return [
             'email'       => ['required', 'email'],
-            'login'       => ['required', 'string'],
             'first_name'  => ['required', 'string'],
             'last_name'   => ['required', 'string'],
             'patronymic'  => ['string'],
             'post'        => ['required', 'string'],
-            'phone'       => ['required', 'string'],
+            'phone'       => ['string'],
             'roles'       => ['array'],
             'permissions' => ['array'],
             'is_blocked'  => ['boolean'],
