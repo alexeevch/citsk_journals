@@ -12,10 +12,12 @@ return new class extends Migration {
     {
         Schema::create('attackers', function (Blueprint $table) {
             $table->id();
-            $table->ipAddress("ipv4");
-            $table->string("description", 255)->nullable();
-            $table->string("country", 255);
-            $table->timestamp("created_at");
+            $table->ipAddress("ipv4")->unique();
+            $table->string("description", 1000)->nullable();
+            $table->timestamp("updated_at")->nullable();
+            $table->timestamp("created_at")->useCurrent();
+
+            $table->foreignId("country_id")->constrained("countries")->onDelete("restrict");
         });
     }
 

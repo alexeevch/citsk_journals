@@ -12,21 +12,20 @@ return new class extends Migration {
     {
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("attacker_id");
-            $table->unsignedBigInteger("infrastructure_id");
-            $table->unsignedBigInteger('type_id');
-            $table->unsignedBigInteger("status_id");
-            $table->string("description", 255)->nullable();
-            $table->timestamp("detection_datetime")->nullable();
-            $table->timestamp("group_alert_datetime")->nullable();
-            $table->timestamp("supervisor_alert_datetime")->nullable();
+            $table->foreignId("attacker_id")->constrained()->onDelete("cascade");
+            $table->foreignId("infrastructure_id")->constrained()->onDelete("restrict");
+            $table->foreignId('type_id')->constrained("incident_types")->onDelete("restrict");
+            $table->foreignId("status_id")->constrained("incident_statuses")->onDelete("restrict");
+            $table->foreignId("created_by")->constrained("users");
+
+            $table->text("description")->nullable();
+
+            $table->timestamp("detection_at")->nullable();
+            $table->timestamp("group_notified_at")->nullable();
+            $table->timestamp("supervisor_notified_at")->nullable();
+
             $table->timestamps();
-
-
-            $table->foreign("attacker_id")->references("id")->on("attackers")->onDelete("cascade");
-            $table->foreign("infrastructure_id")->references("id")->on("infrastructures")->onDelete("cascade");
-            $table->foreign("type_id")->references('id')->on("incident_types");
-            $table->foreign("status_id")->references("id")->on("incident_statuses");
+            $table->softDeletes();
         });
     }
 
