@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class AttackerFactory extends Factory
         return [
             "ipv4"        => $this->faker->ipv4(),
             "description" => $this->faker->text(),
-            "country"     => $this->faker->country(),
+            "country_id"  => Country::pluck("id")->random(),
             "created_at"  => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s')
         ];
     }
