@@ -8,14 +8,14 @@ class InfrastructureCreateDTO extends ValidatedDTO
 {
     public string $ipv4;
     public string $name;
-    public string $owner;
+    public int $owner_id;
 
     protected function rules(): array
     {
         return [
-            'ipv4'  => ['required', 'ipv4'],
-            'name'  => ['required', 'string'],
-            'owner' => ['required', 'string']
+            'ipv4'     => ['required', 'ipv4'],
+            'name'     => ['required', 'string'],
+            'owner_id' => ['required', 'integer', 'exists:owners,id'],
         ];
     }
 
