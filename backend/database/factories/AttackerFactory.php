@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Attacker;
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Attacker>
+ * @extends Factory<Attacker>
  */
 class AttackerFactory extends Factory
 {
