@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Infrastructure;
+use App\Models\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class InfrastructureFactory extends Factory
 {
+    protected $model = Infrastructure::class;
+
     /**
      * Define the model's default state.
      *
@@ -18,9 +22,11 @@ class InfrastructureFactory extends Factory
     public function definition(): array
     {
         return [
-            "ipv4"  => $this->faker->ipv4(),
-            "name"  => $this->faker->company(),
-            "owner" => $this->faker->name()
+            "ipv4"     => $this->faker->ipv4(),
+            "name"     => $this->faker->company(),
+            'owner_id' => function () {
+                return Owner::factory()->create()->id;
+            },
         ];
     }
 }
