@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property IncidentType   $type
  * @property IncidentStatus $status
  * @property string         $description
- * @property DateTime       $detection_time
- * @property DateTime       $group_alert_time
- * @property DateTime       $supervisor_alert_time
+ * @property DateTime       $detection_at
+ * @property DateTime       $group_notified_at
+ * @property DateTime       $supervisor_notified_at
  * @mixin Eloquent
  */
 class Incident extends Model
@@ -30,9 +30,9 @@ class Incident extends Model
         "type",
         "status",
         "description",
-        "detection_datetime",
-        "group_alert_datetime",
-        "supervisor_alert_datetime",
+        "detection_at",
+        "group_notified_at",
+        "supervisor_notified_at",
     ];
 
     public function attacker(): BelongsTo
