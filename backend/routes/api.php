@@ -28,6 +28,6 @@ Route::prefix("v1")->group(function () {
 
     /*    =======  Incident  ======= */
     Route::middleware(["auth:api"])->group(function () {
-        Route::apiResource("/incident", IncidentController::class);
+        Route::apiResource("/incidents", IncidentController::class);
     });
 });
