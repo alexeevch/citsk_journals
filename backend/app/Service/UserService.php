@@ -2,48 +2,81 @@
 
 namespace App\Service;
 
+use App\Constants;
 use App\DTO\Auth\UserCreateDTO;
 use App\DTO\Auth\UserUpdateDTO;
 use App\Http\Resources\Auth\PermissionCollection;
 use App\Http\Resources\Auth\RoleCollection;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
-use Illuminate\Database\Eloquent\Collection;
+use App\Repository\User\UserRepository;
+use App\Repository\User\UserRepositoryImp;
 
-interface UserService
+class UserService
 {
+    private readonly UserRepository $userRepository;
+
+    public function __construct()
+    {
+        $this->userRepository = new UserRepositoryImp();
+    }
+
+
+    /**
+     * @return UserCollection
+     */
+    public function getAllUsers(): UserCollection
+    {
+        return new UserCollection($this->userRepository->findAllUsers());
+    }
+
+
     /**
      * @param  int  $id
      *
      * @return UserResource
      */
-    public function getUserById(int $id): UserResource;
+    public function getUserById(int $id): UserResource
+    {
+        return new UserResource($this->userRepository->findUserById($id));
+    }
 
-    /**
-     * @return UserCollection
-     */
-    public function getAllUsers(): UserCollection;
 
     /**
      * @param  UserCreateDTO  $userCreateDTO
      *
      * @return UserResource
      */
-    public function createUser(UserCreateDTO $userCreateDTO): UserResource;
+    public function createUser(UserCreateDTO $userCreateDTO): UserResource
+    {
+        $user = $this->userRepository->createUser($userCreateDTO);
+        $user->assignRole(Constants::OBSERVER_ROLE);
+
+        return new UserResource($user);
+    }
+
 
     /**
      * @param  UserUpdateDTO  $userUpdateDTO
      *
      * @return UserResource
      */
-    public function updateUser(UserUpdateDTO $userUpdateDTO): UserResource;
+    public function updateUser(UserUpdateDTO $userUpdateDTO): UserResource
+    {
+        return new UserResource($this->userRepository->updateUser($userUpdateDTO));
+    }
+
 
     /**
      * @param  int  $id
      *
      * @return bool
      */
-    public function deleteUser(int $id): bool;
+    public function deleteUser(int $id): bool
+    {
+        return $this->userRepository->deleteUser($id);
+    }
+
 
     /**
      * @param  int    $userId
@@ -51,7 +84,11 @@ interface UserService
      *
      * @return UserResource
      */
-    public function assignRoles(int $userId, array $roles): UserResource;
+    public function assignRoles(int $userId, array $roles): UserResource
+    {
+        return new UserResource($this->userRepository->assignRoles($userId, $roles));
+    }
+
 
     /**
      * @param  int    $userId
@@ -59,15 +96,25 @@ interface UserService
      *
      * @return UserResource
      */
-    public function assignPermissions(int $userId, array $permissions): UserResource;
+    public function assignPermissions(int $userId, array $permissions): UserResource
+    {
+        return new UserResource($this->userRepository->assignPermissions($userId, $permissions));
+    }
+
 
     /**
      * @return RoleCollection
      */
-    public function getRoles(): RoleCollection;
+    public function getRoles(): RoleCollection
+    {
+        return new RoleCollection($this->userRepository->getRoles());
+    }
 
     /**
      * @return PermissionCollection
      */
-    public function getPermissions(): PermissionCollection;
+    public function getPermissions(): PermissionCollection
+    {
+        return new PermissionCollection($this->userRepository->getPermissions());
+    }
 }

@@ -10,26 +10,107 @@ use App\Http\Resources\Auth\PermissionCollection;
 use App\Http\Resources\Auth\PermissionResource;
 use App\Http\Resources\Auth\RoleCollection;
 use App\Http\Resources\Auth\RoleResource;
+use App\Repository\Auth\RoleAndPermissionRepositoryImp;
 
-interface RoleAndPermissionService
+class RoleAndPermissionService
 {
-    public function findRoleAll(): RoleCollection;
+    public function __construct(private readonly RoleAndPermissionRepositoryImp $roleAndPermissionRepository)
+    {
+    }
 
-    public function createRole(RoleCreateDTO $roleCreateDTO): RoleResource;
+    /**
+     * @return RoleCollection
+     */
+    public function findRoleAll(): RoleCollection
+    {
+        return new RoleCollection($this->roleAndPermissionRepository->getAllRoles());
+    }
 
-    public function findRoleById(int $id): RoleResource;
+    /**
+     * @param  RoleCreateDTO  $roleCreateDTO
+     *
+     * @return RoleResource
+     */
+    public function createRole(RoleCreateDTO $roleCreateDTO): RoleResource
+    {
+        return new RoleResource($this->roleAndPermissionRepository->createRole($roleCreateDTO));
+    }
 
-    public function updateRole(RoleUpdateDTO $roleUpdateDTO): RoleResource;
+    /**
+     * @param  int  $id
+     *
+     * @return RoleResource
+     */
+    public function findRoleById(int $id): RoleResource
+    {
+        return new RoleResource($this->roleAndPermissionRepository->findRoleById($id));
+    }
 
-    public function deleteRole(int $id): bool;
+    /**
+     * @param  RoleUpdateDTO  $roleUpdateDTO
+     *
+     * @return RoleResource
+     */
+    public function updateRole(RoleUpdateDTO $roleUpdateDTO): RoleResource
+    {
+        return new RoleResource($this->roleAndPermissionRepository->updateRole($roleUpdateDTO));
+    }
 
-    public function findPermissionAll(): PermissionCollection;
+    /**
+     * @param  int  $id
+     *
+     * @return bool
+     */
+    public function deleteRole(int $id): bool
+    {
+        return $this->roleAndPermissionRepository->deleteRole($id);
+    }
 
-    public function createPermission(PermissionCreateDTO $permissionCreateDTO): PermissionResource;
+    /**
+     * @return PermissionCollection
+     */
+    public function findPermissionAll(): PermissionCollection
+    {
+        return new PermissionCollection($this->roleAndPermissionRepository->getAllPermissions());
+    }
 
-    public function findPermissionById(int $id): PermissionResource;
+    /**
+     * @param  PermissionCreateDTO  $permissionCreateDTO
+     *
+     * @return PermissionResource
+     */
+    public function createPermission(PermissionCreateDTO $permissionCreateDTO): PermissionResource
+    {
+        return new PermissionResource($this->roleAndPermissionRepository->createPermission($permissionCreateDTO));
+    }
 
-    public function updatePermission(PermissionUpdateDTO $permissionUpdateDTO): PermissionResource;
+    /**
+     * @param  int  $id
+     *
+     * @return PermissionResource
+     */
+    public function findPermissionById(int $id): PermissionResource
+    {
+        return new PermissionResource($this->roleAndPermissionRepository->findPermissionById($id));
+    }
 
-    public function deletePermission(int $id): bool;
+    /**
+     * @param  PermissionUpdateDTO  $permissionUpdateDTO
+     *
+     * @return PermissionResource
+     */
+    public function updatePermission(PermissionUpdateDTO $permissionUpdateDTO): PermissionResource
+    {
+        return new PermissionResource($this->roleAndPermissionRepository->updatePermission($permissionUpdateDTO));
+    }
+
+    /**
+     * @param  int  $id
+     *
+     * @return bool
+     */
+    public function deletePermission(int $id): bool
+    {
+        return $this->roleAndPermissionRepository->deletePermission($id);
+    }
 }
