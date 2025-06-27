@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $ipv4
  * @property string $name
  * @property int    $owner_id
+ * @property Owner  $owner
  * @mixin Eloquent
  */
 class Infrastructure extends Model
