@@ -8,19 +8,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Service\UserService;
-use App\Service\UserServiceImp;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
 class UserController extends Controller
 {
-    private readonly UserService $userService;
 
-    public function __construct()
+
+    public function __construct(private readonly UserService $userService)
     {
-        $this->userService = new UserServiceImp();
     }
 
     /**
@@ -34,7 +33,7 @@ class UserController extends Controller
     /**
      * @throws CastTargetException
      * @throws MissingCastTypeException
-     * @throws ValidationException
+     * @throws ValidationException|Throwable
      */
     public function store(Request $request): UserResource
     {
