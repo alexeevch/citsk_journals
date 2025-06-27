@@ -12,10 +12,10 @@ return new class extends Migration {
     {
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("attacker_id")->constrained()->onDelete("cascade");
-            $table->foreignId("infrastructure_id")->constrained()->onDelete("restrict");
-            $table->foreignId('type_id')->constrained("incident_types")->onDelete("restrict");
-            $table->foreignId("status_id")->constrained("incident_statuses")->onDelete("restrict");
+            $table->foreignId("attacker_id")->constrained();
+            $table->foreignId("infrastructure_id")->constrained();
+            $table->foreignId('type_id')->constrained("incident_types");
+            $table->foreignId("status_id")->constrained("incident_statuses");
             $table->foreignId("created_by")->constrained("users");
 
             $table->text("description")->nullable();
