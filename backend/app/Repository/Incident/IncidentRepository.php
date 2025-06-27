@@ -7,6 +7,7 @@ use App\DTO\Incident\IncidentUpdateDTO;
 use App\Models\Attacker;
 use App\Models\Incident;
 use App\Models\Infrastructure;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 interface IncidentRepository
@@ -21,8 +22,8 @@ interface IncidentRepository
     function create(IncidentCreateDTO $incidentCreateDTO, Attacker $attacker, Infrastructure $infrastructure): Incident;
 
     /**
-     * @param  IncidentUpdateDTO  $incidentUpdateDTO
-     * @param  Attacker|null  $attacker
+     * @param  IncidentUpdateDTO    $incidentUpdateDTO
+     * @param  Attacker|null        $attacker
      * @param  Infrastructure|null  $infrastructure
      *
      * @return Incident
@@ -37,6 +38,11 @@ interface IncidentRepository
      * @return Collection
      */
     function findAll(): Collection;
+
+    /**
+     * @return LengthAwarePaginator
+     */
+    function findAllPaginated(): LengthAwarePaginator;
 
     /**
      * @param  int  $id
