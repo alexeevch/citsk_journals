@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int      $id
@@ -25,8 +25,8 @@ class Attacker extends Model
         "country",
     ];
 
-    public function incident(): HasOne
+    public function incident(): HasMany
     {
-        return $this->hasOne(Incident::class, "attacker_id");
+        return $this->hasMany(Incident::class, "attacker_id");
     }
 }
