@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Infrastructure;
 
+use App\Http\Resources\Owner\OwnerResource;
 use App\Models\Infrastructure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,7 +18,7 @@ class InfrastructureResource extends JsonResource
             'id'    => $this->id,
             'ipv4'  => $this->ipv4,
             'name'  => $this->name,
-            'owner' => $this->owner,
+            'owner' => new OwnerResource($this->owner),
         ];
     }
 }
