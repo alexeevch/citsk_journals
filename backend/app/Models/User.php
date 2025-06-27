@@ -72,4 +72,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function getAllPermissions(): \Illuminate\Support\Collection
+    {
+        return $this->getPermissionsViaRoles()->merge($this->permissions);
+    }
 }
