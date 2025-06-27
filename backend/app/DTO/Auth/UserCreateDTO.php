@@ -30,7 +30,6 @@ class UserCreateDTO extends ValidatedDTO
             'phone'       => ['string'],
             'roles'       => ['array'],
             'permissions' => ['array'],
-            'is_blocked'  => ['boolean'],
             'password'    => [
                 'required', Password::min(8)
                                     ->mixedCase()
