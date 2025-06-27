@@ -4,19 +4,21 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\DTO\Auth\UserCreateDTO;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Traits\Response;
-use Hash;
+use App\Service\UserService;
+use App\Traits\HandlesApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
 class AuthController extends Controller
 {
-    use Response;
+    use HandlesApiResponse;
+
+    public function __construct(private readonly UserService $userService)
+    {
+    }
 
     /**
      * @param  Request  $request
@@ -30,18 +32,7 @@ class AuthController extends Controller
     {
         $data = UserCreateDTO::fromRequest($request);
 
-        $user = new User;
-        $user->email = $data->email;
-        $user->password = Hash::make($data->password);
-        $user->first_name = $data->first_name;
-        $user->last_name = $data->last_name;
-        $user->patronymic = $data->patronymic ?? null;
-        $user->phone = $data->phone;
-        $user->is_blocked = $data->is_blocked ?? false;
-        $user->post = $data->post;
-        $user->save();
-
-        return $this->jsonSuccess($user, SymfonyResponse::HTTP_CREATED);
+        return $this->respondCreated($this->userService->createUser($data));
     }
 
     /**
@@ -61,7 +52,7 @@ class AuthController extends Controller
             "password"   => $request->get('password'),
             "is_blocked" => false
         ])) {
-            return $this->jsonUnathorized();
+            return $this->respondUnauthorized();
         }
 
         return $this->respondWithToken($token);
@@ -83,7 +74,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return $this->jsonSuccess();
+        return $this->respondSuccess();
     }
 
     /**
@@ -94,7 +85,7 @@ class AuthController extends Controller
      */
     protected function respondWithToken(string $token): JsonResponse
     {
-        return $this->jsonSuccess([
+        return $this->respondSuccess([
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60
