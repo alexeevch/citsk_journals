@@ -32,8 +32,8 @@ class Owner extends Model
         'deleted_at',
     ];
 
-    public function infrastructure(): HasMany
+    public function infrastructures(): HasMany
     {
-        return $this->hasMany(Infrastructure::class, "owner_id");
+        return $this->hasMany(Infrastructure::class);
     }
 }
