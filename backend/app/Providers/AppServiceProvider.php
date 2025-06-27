@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use App\Exceptions\CustomExceptionHandler;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +11,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(ExceptionHandler::class, CustomExceptionHandler::class);
+        $this->app->singleton(
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \App\Exceptions\ApiExceptionHandler::class);
     }
 
     /**
