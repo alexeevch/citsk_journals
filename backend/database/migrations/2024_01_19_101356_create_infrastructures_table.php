@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->id();
-            $table->ipAddress('ipv4')->unique()->comment('IP-адрес инфраструктуры');
-            $table->string('name', 255)->comment('Наименование ресурса');
-            $table->foreignId('owner_id')->constrained('owners')->onDelete('restrict');
+            $table->ipAddress('ipv4')->unique();
+            $table->string('name', 255);
+            $table->foreignId('owner_id')->nullable()->constrained('owners')->onDelete('set null');
             $table->string('description', 1000)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
