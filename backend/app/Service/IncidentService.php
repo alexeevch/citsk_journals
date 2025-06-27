@@ -28,7 +28,6 @@ class IncidentService
         $this->infrastructureRepository = new InfrastructureRepositoryImp();
     }
 
-
     /**
      * @param  IncidentCreateDTO  $incidentCreateDTO
      *
@@ -45,7 +44,6 @@ class IncidentService
             return new IncidentResource($incident);
         });
     }
-
 
     /**
      * @param  int          $perPage
