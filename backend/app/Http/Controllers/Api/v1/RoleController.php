@@ -7,7 +7,7 @@ use App\DTO\Role\RoleUpdateDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Auth\RoleCollection;
 use App\Http\Resources\Auth\RoleResource;
-use App\Service\RoleAndPermissionServiceImp;
+use App\Service\RoleAndPermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -17,7 +17,7 @@ use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
 class RoleController extends Controller
 {
-    public function __construct(private readonly RoleAndPermissionServiceImp $roleAndPermissionService)
+    public function __construct(private readonly RoleAndPermissionService $roleAndPermissionService)
     {
     }
 
