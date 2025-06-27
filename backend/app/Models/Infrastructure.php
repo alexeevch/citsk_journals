@@ -5,7 +5,9 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int    $id
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Infrastructure extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         "ipv4",
@@ -27,5 +30,10 @@ class Infrastructure extends Model
     public function incident(): HasMany
     {
         return $this->hasMany(Incident::class, "infrastructure_id");
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Owner::class);
     }
 }
