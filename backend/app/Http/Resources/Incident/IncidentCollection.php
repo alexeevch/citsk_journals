@@ -2,20 +2,8 @@
 
 namespace App\Http\Resources\Incident;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\PaginatedCollection;
 
-class IncidentCollection extends ResourceCollection
+class IncidentCollection extends PaginatedCollection
 {
-    /**
-     * Transform the resource collection into an array.
-     *
-     * @return array<int|string, mixed>
-     */
-    public function toArray(Request $request): array
-    {
-        return [
-            'data' => $this->collection,
-        ];
-    }
 }
