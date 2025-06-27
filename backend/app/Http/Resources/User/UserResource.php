@@ -16,7 +16,6 @@ class UserResource extends JsonResource
         return [
             'id'         => $this->id,
             'is_blocked' => $this->is_blocked,
-            'login'      => $this->login,
             'first_name' => $this->first_name,
             'last_name'  => $this->last_name,
             'patronymic' => $this->patronymic,
