@@ -11,6 +11,8 @@ use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Repository\User\UserRepository;
 use App\Repository\User\UserRepositoryImp;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class UserService
 {
@@ -46,13 +48,16 @@ class UserService
      * @param  UserCreateDTO  $userCreateDTO
      *
      * @return UserResource
+     * @throws Throwable
      */
     public function createUser(UserCreateDTO $userCreateDTO): UserResource
     {
-        $user = $this->userRepository->createUser($userCreateDTO);
-        $user->assignRole(Constants::OBSERVER_ROLE);
+        return DB::transaction(function () use ($userCreateDTO) {
+            $user = $this->userRepository->createUser($userCreateDTO);
+            $user->assignRole(Constants::OBSERVER_ROLE);
 
-        return new UserResource($user);
+            return new UserResource($user);
+        });
     }
 
 
