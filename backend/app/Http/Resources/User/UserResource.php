@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources\User;
 
-use App\Http\Resources\Auth\PermissionCollection;
-use App\Http\Resources\Auth\RoleCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,17 +15,18 @@ class UserResource extends JsonResource
     {
         return [
             'id'          => $this->id,
-            'is_blocked'  => $this->is_blocked,
             'first_name'  => $this->first_name,
             'last_name'   => $this->last_name,
             'patronymic'  => $this->patronymic,
+            'full_name'   => $this->getFullNameAttribute(),
             'post'        => $this->post,
             'email'       => $this->email,
             'phone'       => $this->phone,
             'created_at'  => $this->created_at,
             'updated_at'  => $this->updated_at,
-            'roles'       => new RoleCollection($this->roles),
-            'permissions' => new PermissionCollection($this->permissions),
+            'roles'       => $this->roles,
+            'permissions' => $this->getAllPermissions(),
+            'is_blocked'  => $this->is_blocked,
         ];
     }
 }
