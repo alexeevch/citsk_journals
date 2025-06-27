@@ -10,9 +10,9 @@ Route::prefix("v1")->group(function () {
     /*    =======  Auth  ======= */
     Route::prefix("auth")->group(function () {
         Route::post("/login", [AuthController::class, "login"])->name("login");
-        Route::post("/register", [
-            UserController::class, "store"
-        ])->middleware(["auth:api, role:".Constants::ADMIN_ROLE."|".Constants::ROOT_ROLE]);
+
+        Route::post("/register", [AuthController::class, "register"])
+             ->middleware(['auth:api', 'role:'.Constants::ADMIN_ROLE.'|'.Constants::ROOT_ROLE]);
     });
 
     /*    =======  User  ======= */
