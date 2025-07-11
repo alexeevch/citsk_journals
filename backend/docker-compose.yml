@@ -1,0 +1,47 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        image: laravel-app:dev
+        volumes:
+            - ./:/home/www
+            - vendor-data:/home/www/vendor
+        ports:
+            - "9000:9000"
+        env_file:
+            - .env
+        depends_on:
+            - postgres
+            - redis
+
+    nginx:
+        image: nginx:1.25
+        ports:
+            - "8080:80"
+        volumes:
+            - ./:/home/www:ro
+            - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        depends_on:
+            - app
+
+    postgres:
+        image: postgres:15
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+
+    redis:
+        image: redis:7
+        command: [ "redis-server", "--appendonly", "yes" ]
+        ports:
+            - "6379:6379"
+
+volumes:
+    pgdata:
+    vendor-data:
