@@ -1,0 +1,83 @@
+services:
+  journals-backend:
+    build:
+      context: .
+      dockerfile: docker/base.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      # Laravel Application
+      APP_NAME: "Journals Backend"
+      APP_ENV: local
+      APP_KEY: # Будет сгенерирован через make key-generate
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8080
+
+      # Database Configuration
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: journals_db
+      DB_USERNAME: journals_user
+      DB_PASSWORD: journals_password
+
+      # Redis Configuration
+      REDIS_HOST: redis
+      REDIS_PASSWORD: null
+      REDIS_PORT: 6379
+      REDIS_DB: 0
+      REDIS_CACHE_DB: 1
+
+      # Cache Configuration
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_CONNECTION: redis
+
+      # Broadcast Configuration
+      BROADCAST_DRIVER: log
+
+      # Mail Configuration
+      MAIL_MAILER: log
+
+      # JWT Configuration
+      JWT_SECRET: # Будет сгенерирован через make jwt-secret
+
+      # Xdebug Configuration
+      XDEBUG: "1"
+    volumes:
+      - .:/var/www/html:cached
+      - ./storage:/var/www/html/storage:delegated
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
+      # Исключаем vendor для лучшей производительности
+      - /var/www/html/vendor
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: journals_db
+      POSTGRES_USER: journals_user
+      POSTGRES_PASSWORD: journals_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U journals_user -d journals_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  redis:
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ""
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

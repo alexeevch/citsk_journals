@@ -1,47 +1,41 @@
 services:
-    app:
-        build:
-            context: .
-            dockerfile: docker/php/Dockerfile
-        image: laravel-app:dev
-        volumes:
-            - ./:/home/www
-            - vendor-data:/home/www/vendor
-        ports:
-            - "9000:9000"
-        env_file:
-            - .env
-        depends_on:
-            - postgres
-            - redis
+  journals-backend:
+    build:
+      context: .
+      dockerfile: docker/base.Dockerfile
+    image: journals-backend
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/var/www/html:cached
+      - ./storage:/var/www/html/storage:delegated
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
+    networks:
+      - journals-network
 
-    nginx:
-        image: nginx:1.25
-        ports:
-            - "8080:80"
-        volumes:
-            - ./:/home/www:ro
-            - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-        depends_on:
-            - app
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - journals-network
 
-    postgres:
-        image: postgres:15
-        environment:
-            POSTGRES_DB: ${DB_DATABASE}
-            POSTGRES_USER: ${DB_USERNAME}
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-        volumes:
-            - pgdata:/var/lib/postgresql/data
-        ports:
-            - "5432:5432"
-
-    redis:
-        image: redis:7
-        command: [ "redis-server", "--appendonly", "yes" ]
-        ports:
-            - "6379:6379"
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - journals-network
 
 volumes:
-    pgdata:
-    vendor-data:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  journals-network:
+    driver: bridge
