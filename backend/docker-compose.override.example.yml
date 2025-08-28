@@ -1,55 +1,44 @@
 services:
   journals-backend:
-    build:
-      context: .
-      dockerfile: docker/base.Dockerfile
     ports:
       - "8080:8080"
     environment:
-      # Laravel Application
       APP_NAME: "Journals Backend"
       APP_ENV: local
-      APP_KEY: # Будет сгенерирован через make key-generate
+      APP_KEY: base64:4TAXryRoh2UAJ+3CTEi8+IgKArhnKv/cOcBWmeUex3E=
       APP_DEBUG: "true"
-      APP_URL: http://localhost:8080
+      APP_URL: http://jorunals.local
 
-      # Database Configuration
+      USER_ROOT_EMAIL: "admin@cit-sk.ru"
+      USER_ROOT_PASSWORD: "admin1234"
+      USER_ROOT_LAST_NAME: "Admin"
+      USER_ROOT_FIRST_NAME: "Admin"
+      USER_ROOT_POST: "Admin"
+
       DB_CONNECTION: pgsql
       DB_HOST: postgres
       DB_PORT: 5432
       DB_DATABASE: journals_db
-      DB_USERNAME: journals_user
-      DB_PASSWORD: journals_password
+      DB_USERNAME: user
+      DB_PASSWORD: pass
 
-      # Redis Configuration
       REDIS_HOST: redis
       REDIS_PASSWORD: null
       REDIS_PORT: 6379
       REDIS_DB: 0
       REDIS_CACHE_DB: 1
-
-      # Cache Configuration
       CACHE_DRIVER: redis
       SESSION_DRIVER: redis
       QUEUE_CONNECTION: redis
-
-      # Broadcast Configuration
       BROADCAST_DRIVER: log
 
-      # Mail Configuration
       MAIL_MAILER: log
 
-      # JWT Configuration
-      JWT_SECRET: # Будет сгенерирован через make jwt-secret
+      JWT_SECRET: 23f9jesl=129ei1fj/23f923fj23ferf23f-32f23f
 
-      # Xdebug Configuration
       XDEBUG: "1"
     volumes:
-      - .:/var/www/html:cached
-      - ./storage:/var/www/html/storage:delegated
-      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
-      # Исключаем vendor для лучшей производительности
-      - /var/www/html/vendor
+      - .:/var/www/html
     depends_on:
       postgres:
         condition: service_healthy
@@ -61,11 +50,11 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: journals_db
-      POSTGRES_USER: journals_user
-      POSTGRES_PASSWORD: journals_password
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U journals_user -d journals_db"]
+      test: [ "CMD-SHELL", "pg_isready -U journals_user -d journals_db" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -76,7 +65,7 @@ services:
       - "6379:6379"
     command: redis-server --appendonly yes --requirepass ""
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 5s
       retries: 5

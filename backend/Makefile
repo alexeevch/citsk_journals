@@ -1,28 +1,20 @@
 # Makefile для Laravel Journals Backend
-.PHONY: help build up down restart logs shell shell-db shell-redis key-generate jwt-secret migrate seed test clean
+.PHONY: help build up down restart logs shell shell-db shell-redis migrate seed test clean
 
-# Цвета для вывода
-GREEN=\033[0;32m
-YELLOW=\033[1;33m
-RED=\033[0;31m
-NC=\033[0m # No Color
-
-# Помощь
 help: ## Показать это сообщение помощи
-	@echo "$(GREEN)Доступные команды для Laravel Backend:$(NC)"
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  $(YELLOW)%-15s$(NC) %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@echo "Доступные команды для Laravel Backend:"
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-15s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-# Docker команды
 build: ## Собрать Docker образы
-	@echo "$(GREEN)Сборка Docker образов...$(NC)"
+	@echo "Сборка Docker образов..."
 	docker-compose build --no-cache
 
 up: ## Запустить все сервисы
-	@echo "$(GREEN)Запуск сервисов...$(NC)"
+	@echo "Запуск сервисов..."
 	docker-compose up -d
 
 down: ## Остановить все сервисы
-	@echo "$(GREEN)Остановка сервисов...$(NC)"
+	@echo "Остановка сервисов..."
 	docker-compose down
 
 restart: down up ## Перезапустить все сервисы
@@ -39,98 +31,81 @@ logs-db: ## Показать логи базы данных
 logs-redis: ## Показать логи Redis
 	docker-compose logs -f redis
 
-# Вход в контейнеры
 shell: ## Войти в контейнер приложения
-	@echo "$(GREEN)Вход в контейнер приложения...$(NC)"
+	@echo "Вход в контейнер приложения..."
 	docker-compose exec journals-backend bash
 
 shell-db: ## Войти в контейнер базы данных
-	@echo "$(GREEN)Вход в контейнер PostgreSQL...$(NC)"
+	@echo "Вход в контейнер PostgreSQL..."
 	docker-compose exec postgres psql -U journals_user -d journals_db
 
 shell-redis: ## Войти в контейнер Redis
-	@echo "$(GREEN)Вход в контейнер Redis...$(NC)"
+	@echo "Вход в контейнер Redis..."
 	docker-compose exec redis redis-cli
 
-# Laravel команды
-key-generate: ## Сгенерировать новый APP_KEY
-	@echo "$(GREEN)Генерация нового APP_KEY...$(NC)"
-	docker-compose exec journals-backend php artisan key:generate
-
-jwt-secret: ## Сгенерировать JWT секрет
-	@echo "$(GREEN)Генерация JWT секрета...$(NC)"
-	docker-compose exec journals-backend php artisan jwt:secret
-
 migrate: ## Выполнить миграции
-	@echo "$(GREEN)Выполнение миграций...$(NC)"
+	@echo "Выполнение миграций..."
 	docker-compose exec journals-backend php artisan migrate
 
 migrate-fresh: ## Пересоздать базу данных с миграциями
-	@echo "$(YELLOW)Пересоздание базы данных...$(NC)"
+	@echo "Пересоздание базы данных..."
 	docker-compose exec journals-backend php artisan migrate:fresh
 
 seed: ## Заполнить базу тестовыми данными
-	@echo "$(GREEN)Заполнение базы тестовыми данными...$(NC)"
+	@echo "Заполнение базы тестовыми данными..."
 	docker-compose exec journals-backend php artisan db:seed
 
 migrate-seed: migrate seed ## Выполнить миграции и заполнить данными
 
 fresh-seed: migrate-fresh seed ## Пересоздать БД и заполнить данными
 
-# Кэш команды
 cache-clear: ## Очистить весь кэш
-	@echo "$(GREEN)Очистка кэша...$(NC)"
+	@echo "Очистка кэша..."
 	docker-compose exec journals-backend php artisan cache:clear
 	docker-compose exec journals-backend php artisan config:clear
 	docker-compose exec journals-backend php artisan route:clear
 	docker-compose exec journals-backend php artisan view:clear
 
 cache-config: ## Кэшировать конфигурацию
-	@echo "$(GREEN)Кэширование конфигурации...$(NC)"
+	@echo "Кэширование конфигурации..."
 	docker-compose exec journals-backend php artisan config:cache
 
 cache-routes: ## Кэшировать маршруты
-	@echo "$(GREEN)Кэширование маршрутов...$(NC)"
+	@echo "Кэширование маршрутов..."
 	docker-compose exec journals-backend php artisan route:cache
 
-# Composer команды
 composer-install: ## Установить зависимости Composer
-	@echo "$(GREEN)Установка зависимостей Composer...$(NC)"
+	@echo "Установка зависимостей Composer..."
 	docker-compose exec journals-backend composer install
 
 composer-update: ## Обновить зависимости Composer
-	@echo "$(GREEN)Обновление зависимостей Composer...$(NC)"
+	@echo "Обновление зависимостей Composer..."
 	docker-compose exec journals-backend composer update
 
 composer-dump: ## Обновить автозагрузку Composer
-	@echo "$(GREEN)Обновление автозагрузки Composer...$(NC)"
+	@echo "Обновление автозагрузки Composer..."
 	docker-compose exec journals-backend composer dump-autoload
 
-# Тестирование
 test: ## Запустить тесты
-	@echo "$(GREEN)Запуск тестов...$(NC)"
+	@echo "Запуск тестов..."
 	docker-compose exec journals-backend php artisan test
 
 test-coverage: ## Запустить тесты с покрытием кода
-	@echo "$(GREEN)Запуск тестов с покрытием кода...$(NC)"
+	@echo "Запуск тестов с покрытием кода..."
 	docker-compose exec journals-backend php artisan test --coverage
 
-# Очистка
 clean: ## Очистить все данные и контейнеры
-	@echo "$(RED)Остановка и удаление всех контейнеров и данных...$(NC)"
+	@echo "Остановка и удаление всех контейнеров и данных..."
 	docker-compose down -v
 	docker system prune -f
 	docker volume prune -f
 
-# Статус
 status: ## Показать статус сервисов
-	@echo "$(GREEN)Статус сервисов:$(NC)"
+	@echo "Статус сервисов:"
 	docker-compose ps
 
-# Первоначальная настройка
-setup: build up key-generate jwt-secret migrate-seed ## Полная первоначальная настройка проекта
-	@echo "$(GREEN)Backend успешно настроен!$(NC)"
-	@echo "$(YELLOW)Laravel API доступно по адресу: http://localhost:8080$(NC)"
+setup: build up migrate-seed ## Полная первоначальная настройка проекта
+	@echo "Backend успешно настроен!"
 
 # Быстрый старт для разработки
-dev: up logs-app ## Запустить в режиме разработки с логами 
+dev: up logs-app ## Запустить в режиме разработки с логами

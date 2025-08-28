@@ -8,34 +8,22 @@ services:
       - postgres
       - redis
     volumes:
-      - .:/var/www/html:cached
-      - ./storage:/var/www/html/storage:delegated
-      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
-    networks:
-      - journals-network
+      - .:/var/www/html
 
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - journals-network
 
   redis:
     image: redis:7-alpine
     restart: unless-stopped
     volumes:
       - redis_data:/data
-    networks:
-      - journals-network
 
 volumes:
   postgres_data:
     driver: local
   redis_data:
     driver: local
-
-networks:
-  journals-network:
-    driver: bridge
