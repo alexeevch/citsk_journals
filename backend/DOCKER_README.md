@@ -64,8 +64,6 @@ make shell-redis   # Войти в Redis CLI
 ### Laravel команды
 
 ```bash
-make key-generate  # Сгенерировать APP_KEY
-make jwt-secret    # Сгенерировать JWT секрет
 make migrate       # Выполнить миграции
 make seed          # Заполнить тестовыми данными
 make migrate-seed  # Миграции + заполнение данными
@@ -115,54 +113,9 @@ environment:
 - **Laravel API**: http://localhost:8080
 - **PostgreSQL**: localhost:5432
   - Database: `journals_db`
-  - User: `journals_user`
-  - Password: `journals_password`
+  - User: `user`
+  - Password: `pass`
 - **Redis**: localhost:6379
-
-## Структура файлов
-
-```
-backend/
-├── docker-compose.yml                    # Основная конфигурация
-├── docker-compose.override.example.yml  # Пример настроек для разработки
-├── docker-compose.override.yml          # Ваши локальные настройки (не в git)
-├── Makefile                             # Удобные команды
-└── docker/
-    ├── base.Dockerfile                  # Базовый образ
-    ├── Dockerfile                       # Продакшн образ
-    ├── entrypoint.sh                   # Скрипт запуска
-    └── config/                         # Конфигурации
-        ├── nginx.conf
-        ├── supervisord.conf
-        └── php/
-            ├── fpm-pool.conf
-            ├── php.ini
-            └── xdebug.ini
-```
-
-## Переменные окружения
-
-Основные переменные настроены в `docker-compose.override.yml`:
-
-### Laravel
-- `APP_NAME`: Название приложения
-- `APP_ENV`: Окружение (local/production)
-- `APP_KEY`: Ключ приложения (генерируется автоматически)
-- `APP_DEBUG`: Режим отладки
-
-### База данных
-- `DB_CONNECTION`: pgsql
-- `DB_HOST`: postgres
-- `DB_DATABASE`: journals_db
-- `DB_USERNAME`: journals_user
-- `DB_PASSWORD`: journals_password
-
-### Redis
-- `REDIS_HOST`: redis
-- `REDIS_PORT`: 6379
-- `CACHE_DRIVER`: redis
-- `SESSION_DRIVER`: redis
-- `QUEUE_CONNECTION`: redis
 
 ## Устранение неполадок
 
