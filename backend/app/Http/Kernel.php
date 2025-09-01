@@ -26,6 +26,7 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
@@ -65,8 +66,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            ThrottleRequests::class.':api',
+            EnsureFrontendRequestsAreStateful::class,
+            'throttle:api',
             SubstituteBindings::class,
         ],
     ];
@@ -79,19 +80,19 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-        'auth'               => Authenticate::class,
-        'auth.basic'         => AuthenticateWithBasicAuth::class,
-        'auth.session'       => AuthenticateSession::class,
-        'cache.headers'      => SetCacheHeaders::class,
-        'can'                => Authorize::class,
-        'guest'              => RedirectIfAuthenticated::class,
-        'password.confirm'   => RequirePassword::class,
-        'precognitive'       => HandlePrecognitiveRequests::class,
-        'signed'             => ValidateSignature::class,
-        'throttle'           => ThrottleRequests::class,
-        'verified'           => EnsureEmailIsVerified::class,
-        'role'               => RoleMiddleware::class,
-        'permission'         => PermissionMiddleware::class,
+        'auth' => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'auth.session' => AuthenticateSession::class,
+        'cache.headers' => SetCacheHeaders::class,
+        'can' => Authorize::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'password.confirm' => RequirePassword::class,
+        'precognitive' => HandlePrecognitiveRequests::class,
+        'signed' => ValidateSignature::class,
+        'throttle' => ThrottleRequests::class,
+        'verified' => EnsureEmailIsVerified::class,
+        'role' => RoleMiddleware::class,
+        'permission' => PermissionMiddleware::class,
         'role_or_permission' => RoleOrPermissionMiddleware::class,
     ];
 }

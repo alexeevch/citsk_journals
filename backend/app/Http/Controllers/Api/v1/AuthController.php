@@ -8,7 +8,9 @@ use App\Service\UserService;
 use App\Traits\HandlesApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
@@ -21,12 +23,12 @@ class AuthController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return JsonResponse
      * @throws CastTargetException
      * @throws MissingCastTypeException
-     * @throws ValidationException
+     * @throws ValidationException|Throwable
      */
     public function register(Request $request): JsonResponse
     {
@@ -36,59 +38,33 @@ class AuthController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return JsonResponse
      */
     public function login(Request $request): JsonResponse
     {
-        $request->validate([
-            'email'    => 'required|string',
+        $credentials = $request->validate([
+            'email' => 'required|string',
             'password' => 'required|string'
         ]);
 
-        if (!$token = auth()->attempt([
-            "email"      => $request->get('email'),
-            "password"   => $request->get('password'),
-            "is_blocked" => false
-        ])) {
+        if (!Auth::guard("web")->attempt($credentials)) {
             return $this->respondUnauthorized();
         }
 
-        return $this->respondWithToken($token);
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    public function refresh(): JsonResponse
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    /**
-     *
-     * @return JsonResponse
-     */
-    public function logout(): JsonResponse
-    {
-        auth()->logout();
+        $request->session()->regenerate();
 
         return $this->respondSuccess();
     }
 
-    /**
-     *
-     * @param  string  $token
-     *
-     * @return JsonResponse
-     */
-    protected function respondWithToken(string $token): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
-        return $this->respondSuccess([
-            'access_token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in'   => auth()->factory()->getTTL() * 60
-        ]);
+        Auth::guard("web")->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return $this->respondSuccess();
     }
 }

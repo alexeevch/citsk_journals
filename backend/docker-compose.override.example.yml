@@ -28,13 +28,11 @@ services:
       REDIS_DB: 0
       REDIS_CACHE_DB: 1
       CACHE_DRIVER: redis
-      SESSION_DRIVER: redis
+      SESSION_DRIVER: cookie
       QUEUE_CONNECTION: redis
-      BROADCAST_DRIVER: log
 
-      MAIL_MAILER: log
-
-      JWT_SECRET: 23f9jesl=129ei1fj/23f923fj23ferf23f-32f23f
+      SANCTUM_STATEFUL_DOMAINS: localhost:5173, journals.local
+      SESSION_DOMAIN: .journals.local
 
       XDEBUG: "1"
     volumes:
